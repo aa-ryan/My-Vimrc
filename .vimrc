@@ -63,7 +63,7 @@ let python_space_error_highlight = 0
 let g:airline_theme='powerlineish'
 let g:airline_powerline_fonts = 1
 g:airline_symbols
-set guifont=Source\ Code\ Pro\ for\ Powerline:h24
+set guifont=Source\ Code\ Pro\ for\ Powerline:h11
 
 
 
