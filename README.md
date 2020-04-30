@@ -1,7 +1,7 @@
 # vimrc
 I am getting started with vim , for python.
 
--If you want to install more plugins just place that plug statement in .vimrc between
+- If you want to install more plugins just place that plug statement in .vimrc between
 </br>call plug#begin()
 </br>Plug "--something--"
 </br>call plug#end()
@@ -15,5 +15,14 @@ Some basic things, I use frequently in vim
  </br> Press Leader+cc - To comment out the whole line your cursor is on.
  </br>Press Leader+c$ - To comment from where your cursor is to the end of the line.
 5. Auto-matic indentation is enabled for python.
+6. Supertab enables TAB for auto completion.
 
- 
+That's not all the what plugins provide there is much more.
+
+Some more commands to use in vim.
+1. :SyntasticCheck     (use TAB for autocompletion)
+2. :NERDtree for file browsing on your system.
+3. :SuperTabHelp
+4. :AirlineTheme (use this to change theme of you airline.)
+     I personally use :AirlineTheme powerlineish  ()
+     
