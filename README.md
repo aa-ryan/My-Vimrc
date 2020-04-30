@@ -27,6 +27,6 @@ Some more commands to use in vim.
      I personally use :AirlineTheme powerlineish  ()
      
  MAKE SURE TO INSTALL POWERLINE FONTS FOR AIRLINE TO WORK PROPERLY
- (IF YOU DON'T WANT TO INSTALL JUST REMOVE LINE 64 AND 65 FROM VIMRC)
+ (IF YOU DON'T WANT TO INSTALL JUST REMOVE LINE 64, 65 and 66 FROM VIMRC)
  [Link](https://github.com/powerline/fonts)
      
