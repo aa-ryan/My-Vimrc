@@ -8,7 +8,7 @@ I am getting started with vim , for python.
 
 
 Some basic things, I use frequently in vim
-1. Leader key is set to <space>.
+1. Leader key is set to SPACEBAR.
 2. Arrow keys are disabled. (for being efficient)
 3. While in Insert mode if you want to move to end of the line press CTRL-E and for the top of the line press CTRL-A.
 4. Most used commenting feature that comes with NERDcommentor.
