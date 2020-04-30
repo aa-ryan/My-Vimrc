@@ -2,9 +2,9 @@
 I am getting started with vim , for python.
 
 If you want to install more plugins just place that plug statement in .vimrc between
-call plug#begin()
-Plug ----something----
-call plug#end()
+</br>call plug#begin()
+</br>Plug "--something--"
+</br>call plug#end()
 
 
 Some basic things, I use frequently in vim
