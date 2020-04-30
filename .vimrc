@@ -60,6 +60,11 @@ let python_space_error_highlight = 0
 
 :let mapleader = "\<Space>"
 
+let g:airline_theme='powerlineish'
+let g:airline_powerline_fonts = 1
+g:airline_symbols
+
+
 
 
 
