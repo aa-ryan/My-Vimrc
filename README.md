@@ -33,6 +33,8 @@ Some more commands to use in vim.
  ** I don't feel like that I need nerdtree since I am using Macvim.
  
  Read the official documentation for more efficiency while writing code
+ 
+ 
  </br>[nerdtree](https://github.com/preservim/nerdtree)            
  </br>[fugitive](https://github.com/tpope/vim-fugitive)
  </br>[syntastic](https://github.com/vim-syntastic/syntastic)
