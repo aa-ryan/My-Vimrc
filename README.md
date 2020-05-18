@@ -28,5 +28,21 @@ Some more commands to use in vim.
      
  MAKE SURE TO INSTALL POWERLINE FONTS FOR AIRLINE TO WORK PROPERLY
  (IF YOU DON'T WANT TO INSTALL JUST REMOVE LINE 64, 65 and 66 FROM VIMRC)
- [Link](https://github.com/powerline/fonts)
-     
+ [Font](https://github.com/powerline/fonts)
+ 
+ ** I don't feel like that I need nerdtree since I am using Macvim.
+ 
+ Read the official documentation for more efficiency while writing code
+ [nerdtree](https://github.com/preservim/nerdtree)            
+ [fugitive](https://github.com/tpope/vim-fugitive)
+ [syntastic](https://github.com/vim-syntastic/syntastic)
+ [supertab](https://github.com/ervandew/supertab)
+ [airline](https://github.com/vim-airline/vim-airline)
+ [simpylfold](https://github.com/tmhedberg/simpylfold)
+ [delimitmate](https://github.com/raimondi/delimitmate)
+ [jedi-vim](https://github.com/davidhalter/jedi-vim)
+ [airline-themes](https://github.com/vim-airline/vim-airline-themes)
+ [nerdcommenter](https://github.com/preservim/nerdcommenter)
+ [vim-surround](https://github.com/tpope/vim-surround)
+ [stopwatch](https://github.com/ffanzhang/vim-airline-stopwatch)
+ [codedark](https://github.com/tomasiser/vim-code-dark)
