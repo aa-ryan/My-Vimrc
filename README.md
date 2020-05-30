@@ -36,7 +36,7 @@ Some more commands to use in vim.
  
  Read the official documentation for more efficiency while writing code
  </br>[nerdtree](https://github.com/preservim/nerdtree)            
- </br>[fugitive](https://github.com/tpope/vim-fugitive)
+ [fugitive](https://github.com/tpope/vim-fugitive)
  </br>[syntastic](https://github.com/vim-syntastic/syntastic)
  </br>[supertab](https://github.com/ervandew/supertab)
  </br>[airline](https://github.com/vim-airline/vim-airline)
