@@ -17,7 +17,10 @@ Some basic things, I use frequently in vim
  </br>Press Leader+c$ - To comment from where your cursor is to the end of the line.
 5. Auto-matic indentation is enabled for python.
 6. Supertab enables TAB for auto completion.
+
+
 </br> There is more instruction in .vimrc file.
+
 
 That's not all the what plugins provide there is much more.
 
@@ -26,7 +29,6 @@ Some more commands to use in vim.
 2. :NERDtree for file browsing on your system.
 3. :SuperTabHelp
 4. :AirlineTheme (use this to change theme of you airline.)
-     I personally use :AirlineTheme powerlineish  ()
      
  MAKE SURE TO INSTALL POWERLINE FONTS FOR AIRLINE TO WORK PROPERLY
  (IF YOU DON'T WANT TO INSTALL JUST REMOVE LINE 64, 65 and 66 FROM VIMRC)
