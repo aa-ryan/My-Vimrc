@@ -110,7 +110,7 @@ colorscheme codedark
 :nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl<Bar> :unlet _s <CR>
 
 "Automatically remove all trailing whitespaces on saving file.
-autocmd BufWritePre * :%s/\s\+$//
+autocmd BufWritePre * :%s/\s\+$//e
 
 "StopClock for time management, See the key bindings.
 map tR :call airline#extensions#stopwatch#run()<CR>. "run
