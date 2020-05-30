@@ -1,6 +1,6 @@
 # vimrc
 I am getting started with vim , for python. 
-(edit- It's been a while I have been using vim for not only python but C and C++ also.)
+</br>(edit- It's been a while I have been using vim for not only python but C and C++ also.)
 
 - If you want to install more plugins just place that plug statement in .vimrc between
 </br>call plug#begin()
