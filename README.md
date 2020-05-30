@@ -50,3 +50,4 @@ Some more commands to use in vim.
  </br>[vim-surround](https://github.com/tpope/vim-surround)
  </br>[stopwatch](https://github.com/ffanzhang/vim-airline-stopwatch)
  </br>[codedark](https://github.com/tomasiser/vim-code-dark)
+ </br>[indent-line](https://github.com/yggdroot/indentline)
