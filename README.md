@@ -32,7 +32,7 @@ Some more commands to use in vim.
  (IF YOU DON'T WANT TO INSTALL JUST REMOVE LINE 64, 65 and 66 FROM VIMRC)
  [Font](https://github.com/powerline/fonts)
  
- ** I don't feel like that I need nerdtree since I am using Macvim.
+ ******************************************************************************************************
  
  Read the official documentation for more efficiency while writing code
  </br>[nerdtree](https://github.com/preservim/nerdtree)            
