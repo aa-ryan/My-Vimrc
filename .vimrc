@@ -30,6 +30,7 @@ Plug 'tmhedberg/simpylfold'
 Plug 'raimondi/delimitmate'
 Plug 'davidhalter/jedi-vim'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'jmcantrell/vim-virtualenv'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'ffanzhang/vim-airline-stopwatch'
@@ -44,9 +45,9 @@ map <C-n> :NERDTreeToggle<CR>
 "Syntastic configuration
 "Checkers for cpp and c are already enabled to check run :SyntasticInfo .
 "OR specify the path of the gcc or make.
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -99,6 +100,13 @@ let g:airline_theme='codedark'
 let g:airline_powerline_fonts = 1
 set guifont=Source\ Code\ Pro\ for\ Powerline:h14
 let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#virtualenv#enabled = 1
+let g:airline#extensions#whitespace#enabled = 1
+"let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#syntastic#enabled = 1
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
 let g:airline_section_c = '%{strftime("%H:%M")}'
 
 
@@ -163,14 +171,21 @@ autocmd FileType c,cpp :setf c
 autocmd FileType c,cpp :set expandtab
 
 "Reload .vimrc when changes are made.
-autocmd! bufwritepost vimrc source ~/.vim_runtime/vimrc
+autocmd bufwritepost .vimrc source $MYVIMRC
 
 
+"DelimitMate expansion of Brackets.
+let delimitMate_expand_cr = 1
 
 
+"Abbreviation
+iabbrev #i #include<stdio.h>
+iabbrev #d #define
+"iabbrev s struct
+"iabbrev t typedef
 
-
-
+"Use of python's virtual envoirments.
+let g:virtualenv_directory = '/Users/arx6363/.venvs'
 
 
 
