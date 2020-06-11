@@ -44,7 +44,7 @@ Some basic things, I use frequently in vim
  </br>[stopwatch](https://github.com/ffanzhang/vim-airline-stopwatch)
  </br>[indent-line](https://github.com/yggdroot/indentline)
  </br>[coc.nvim](https://github.com/neoclide/coc.nvim)
- </br>[coc.python](https://github.com/neoclide/coc-python) Refer to this to understand what's going in coc-setting.json.
+ </br>[coc.python](https://github.com/neoclide/coc-python)--- Refer to this to understand what's going in coc-setting.json.
  </br>[coc.clangd](https://github.com/clangd/coc-clangd)
  </br>[rainbow](https://github.com/luochen1990/rainbow)
  </br>[pep8-indent](https://github.com/Vimjas/vim-python-pep8-indent)
