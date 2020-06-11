@@ -58,6 +58,7 @@ Some basic things, I use frequently in vim
  
 </br></br>
 **coc-settings.json explanation**
+You can access you coc-setting.json by command :CocConfig or you can find it in vim folder.
 
 * C and C++ see for "clangd" below.
 
