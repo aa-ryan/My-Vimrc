@@ -74,7 +74,7 @@ Some basic things, I use frequently in vim
    To install pylint "pip install pylint"
    
 - "python.linting.pylamaEnabled":true, (Enabling pylama)</br>
-  "python.linting.pylamaPath":"/Users/arx6363/.venvs/1env/bin/pylama" (Path to my pylama)</br>
+  "python.linting.pylamaPath":"/Users/username/.venvs/1env/bin/pylama" (Path to my pylama)</br>
   Note: For using pylama you should have atleast pycodestyle.</br>
   If you want it to use to full potential install pydocstyle, pyflakes or flake8.
   
