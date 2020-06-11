@@ -174,7 +174,7 @@ let g:python_pep8_indent_hang_closing=1
 let g:python_pep8_indent_multiline_string=-1
 
 
-""""""""From here is the start for coc.nvim plugin.""""""""""
+""""""""""""""""""""""""""""""""""""""""From here is the config for coc.nvim plugin."""""""""""""""""""""""""""""""""""""""""""
 
 
 " TextEdit might fail if hidden is not set.
@@ -325,7 +325,7 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-""""""""""""""""""""""""""END""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""END"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "Expansion of brackets
 "Since now I am using coc.vim so this is the config for DelimitMate
