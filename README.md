@@ -1,7 +1,7 @@
 # vimrc
 I am getting started with vim , for python. 
-</br>(edit- It's been a while I have been using vim for not only python but C and C++ also.)
-</br> (edit - It's major upgrade now in my vimrc, will be adding a new file coc-setting.json.)
+</br>(edit1 - It's been a while I have been using vim for not only python but C and C++ also.)
+</br> (edit2  - It's major upgrade now in my vimrc, will be adding a new file coc-setting.json.)
 I started using **[coc.nvim](https://github.com/neoclide/coc.nvim)** and it's really a game changer.
 
 </br>***Added lot of comments to .vimrc file to make it readable and to understand commands.***
@@ -54,3 +54,49 @@ Some basic things, I use frequently in vim
  </br>[codedark](https://github.com/tomasiser/vim-code-dark)
  </br>[dracula](https://github.com/dracula/vim)
  </br>[jellybean](https://github.com/nanotech/jellybeans.vim)
+ 
+ 
+</br></br>
+**coc-settings.json explanation**
+
+* C and C++ see for "clangd" below.
+
+- "python.autoUpdateLanguageServer": true </br>(default value is true so you don't need to set this I have done this for my convenience.)</br>
+(Make sure you have language server installed for that go to terminal and type)</br>
+"pip install python-language-server"</br>
+
+- "python.pythonPath": "/Users/username/.venvs/1env/bin/python" </br>(This is my path in my virtual envoirment since I don't want to mess with my system's python that's why I am it, using this have an advantage that I don't need to set Virtualenv path it is already using on of my virtualenv.)
+
+-  "python.linting.enabled": true (Enabling linting for python)
+
+-  "python.linting.pylintEnabled":true,  (Enabling pylint for python) </br>
+   "python.linting.pylintPath":"/Users/username/.venvs/1env/bin/pylint" (Path to my pylint executable file)</br>
+   To install pylint "pip install pylint"
+   
+- "python.linting.pylamaEnabled":true, (Enabling pylama)</br>
+  "python.linting.pylamaPath":"/Users/arx6363/.venvs/1env/bin/pylama" (Path to my pylama)</br>
+  Note: For using pylama you should have atleast pycodestyle.</br>
+  If you want it to use to full potential install pydocstyle, pyflakes or flake8.
+  
+  Commands: </br>* pip install pylama
+            </br>* pip install pycodestyle
+            </br>* pip install pydocstyle
+            </br>* pip install pyflakes 
+            </br>* pip install flake8
+
+-  "python.jediEnabled":false, (Default set to false it's just optional)</br>
+   "python.jediPath" : "/Users/username/.venvs/1env/lib/python3.8/site-packages/jedi" (Path to jedi)</br>
+   
+   Jedi is a completion libarary for python but now I am using MPLS (Microsoft Python Language Server)</br>
+   If you set "false" coc.nvim will automatically download the latest MPLS for you.</br>
+   You don't even need to set this to "false" just don't mention that line and path.
+
+-  "python.venvFolders": [".venvs"],    </br> (It's just a list for what name folder can be with virtualenv you can add more to it)</br>
+   "python.venvPath" : "/Users/username" (Path to my virtualenv)
+
+- "python.sortImports.path":"/Users/username/.venvs/1env/bin/isort", (isort for sorting imports)</br>
+  "clangd.path": "/Users/username/.config/clangd_10.0.0/bin/clangd"  (For C and C++ user, it is my path to clangd)
+  </br>
+  Commands:
+          </br> * pip install isort
+          </br> * brew install clangd
