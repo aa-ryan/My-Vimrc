@@ -1,0 +1,22 @@
+{
+  "python.autoUpdateLanguageServer": true,
+  "python.pythonPath": "/Users/arx6363/.venvs/1env/bin/python",
+
+  "python.linting.enabled": true,
+
+  "python.linting.pylintEnabled":true,
+  "python.linting.pylintPath":"/Users/arx6363/.venvs/1env/bin/pylint",
+
+  "python.linting.pylamaEnabled":true,
+  "python.linting.pylamaPath":"/Users/arx6363/.venvs/1env/bin/pylama",
+
+  "python.jediEnabled":false,
+ " python.jediPath" : "/Users/arx6363/.venvs/1env/lib/python3.8/site-packages/jedi",
+
+  "python.venvFolders": [".venvs"],
+  "python.venvPath" : "/Users/arx6363",
+
+  "python.sortImports.path":"/Users/arx6363/.venvs/1env/bin/isort",
+  "clangd.path": "/Users/arx6363/.config/clangd_10.0.0/bin/clangd"
+
+}
