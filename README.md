@@ -14,6 +14,10 @@ I started using **[coc.nvim](https://github.com/neoclide/coc.nvim)** and it's re
 After you install coc.nvim you need to run these commands.
 * :CocInstall coc-python      (This will install python support for your coc.nvim i.e. autocompletion)
 * :CocInstall coc-clangd      (This will install C and C++ support for coc.nvim i.e. autocompletion)
+* :CocInstall coc-highlight   (It is for better highlighting of code)
+* :CocInstall coc-json        (Json - support)
+* :CocInstall coc-vimlsp      (VimL - support)
+
 
 Some basic things, I use frequently in vim
 
@@ -23,6 +27,7 @@ Some basic things, I use frequently in vim
 4. Most used commenting feature that comes with NERDcommentor.
  </br> Press Leader+cs - To comment out the whole line your cursor is on.
  </br>Press Leader+c$ - To comment from where your cursor is to the end of the line.
+ 5.Skim.vim ---> Very use full plug, for searching file and inside files.Just :SK or <Leader>ff for files or <Leader>L for searching lines inside files. It changes workflow entirely.
 
 
 
@@ -46,14 +51,34 @@ Some basic things, I use frequently in vim
  </br>[coc.nvim](https://github.com/neoclide/coc.nvim)
  </br>[coc.python](https://github.com/neoclide/coc-python)--- Refer to this to understand what's going in coc-setting.json.
  </br>[coc.clangd](https://github.com/clangd/coc-clangd)
+ </br>[coc.vimlsp](https://github.com/iamcco/coc-vimlsp)
+ </br>[coc.json](https://github.com/neoclide/coc-json)
+ </br>[coc.highlight](https://github.com/neoclide/coc-highlight)
  </br>[rainbow](https://github.com/luochen1990/rainbow)
- </br>[pep8-indent](https://github.com/Vimjas/vim-python-pep8-indent)
  </br>[virtualenv](https://github.com/jmcantrell/vim-virtualenv)
+ </br>[vim-lsp-cxx-highlight](https://github.com/jackguo380/vim-lsp-cxx-highlight)
+ </br>[taglist](https://github.com/vim-scripts/taglist.vim)----------I mainly use :Tlist command to see my function and declarations at once.
+ </br>[skim](https://github.com/lotabout/skim.vim) 
+ </br>[vim-repeat](https://github.com/tpope/vim-repeat)
+ </br>[vim-muliple-cursor](https://github.com/terryma/vim-multiple-cursors)---Read it's documentation for sure it's amazing.
+ </br>[vim-signature](https://github.com/terryma/vim-multiple-cursors) ------It shows your marked lines read documentation.
+ </br>[jupyter-vim](https://github.com/wmvanvliet/jupyter-vim)
   
   I have been using a lot of colorschemes-->
  </br>[codedark](https://github.com/tomasiser/vim-code-dark)
  </br>[dracula](https://github.com/dracula/vim)
  </br>[jellybean](https://github.com/nanotech/jellybeans.vim)
+ </br>[gruvbox] (https://github.com/morhetz/gruvbox)
+ </br>[material] (https://github.com/kaicataldo/material.vim)
+ </br>[seoul] (https://github.com/junegunn/seoul256.vim)
+ </br>[cosmi-latte] (https://github.com/nightsense/cosmic_latte)
+ </br>[palenight] (https://github.com/drewtempelmeyer/palenight.vim)
+ </br>[stellarlized] (https://github.com/nightsense/stellarized)
+ </br>[zenburn] (https://github.com/jnurmine/Zenburn)
+ </br>[nord] (https://github.com/arcticicestudio/nord-vim)
+
+
+
  
  
 </br></br>
