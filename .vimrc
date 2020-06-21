@@ -337,7 +337,7 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
------------------------------""""""""""""""""""""""""""END""""""""""""""""""""""""""""""""""""""""""""""""-----------------
+"-----------------------------""""""""""""""""""""""""""END""""""""""""""""""""""""""""""""""""""""""""""""-----------------
 
 "Expansion of brackets
 "Since now I am using coc.vim so this is the config for DelimitMate
@@ -356,7 +356,7 @@ end
 
 let g:jupyter_mapkeys = 0     "Default mapping of jupyter is disabled.
 
--------------------------"""""""""jupyter mapped keys""""""""""""""-------------------------------------------------------------
+"-------------------------"""""""""jupyter mapped keys""""""""""""""-------------------------------------------------------------
 
 "In terminal type 'jupyter qtconsole' and then in vim type ':JupyterConnect' (use tab) to connect jupyter kernel to vim
 "then you can use these key mappings it is use full in debugging
