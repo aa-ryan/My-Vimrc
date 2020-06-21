@@ -68,14 +68,14 @@ Some basic things, I use frequently in vim
  </br>[codedark](https://github.com/tomasiser/vim-code-dark)
  </br>[dracula](https://github.com/dracula/vim)
  </br>[jellybean](https://github.com/nanotech/jellybeans.vim)
- </br>[gruvbox] (https://github.com/morhetz/gruvbox)
- </br>[material] (https://github.com/kaicataldo/material.vim)
- </br>[seoul] (https://github.com/junegunn/seoul256.vim)
- </br>[cosmi-latte] (https://github.com/nightsense/cosmic_latte)
- </br>[palenight] (https://github.com/drewtempelmeyer/palenight.vim)
- </br>[stellarlized] (https://github.com/nightsense/stellarized)
- </br>[zenburn] (https://github.com/jnurmine/Zenburn)
- </br>[nord] (https://github.com/arcticicestudio/nord-vim)
+ </br>[gruvbox](https://github.com/morhetz/gruvbox)
+ </br>[material](https://github.com/kaicataldo/material.vim)
+ </br>[seoul](https://github.com/junegunn/seoul256.vim)
+ </br>[cosmi-latte](https://github.com/nightsense/cosmic_latte)
+ </br>[palenight](https://github.com/drewtempelmeyer/palenight.vim)
+ </br>[stellarlized](https://github.com/nightsense/stellarized)
+ </br>[zenburn](https://github.com/jnurmine/Zenburn)
+ </br>[nord](https://github.com/arcticicestudio/nord-vim)
 
 
 
