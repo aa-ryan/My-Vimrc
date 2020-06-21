@@ -62,7 +62,7 @@ Some basic things, I use frequently in vim
  </br>[vim-repeat](https://github.com/tpope/vim-repeat)
  </br>[vim-muliple-cursor](https://github.com/terryma/vim-multiple-cursors)---Read it's documentation for sure it's amazing.
  </br>[vim-signature](https://github.com/terryma/vim-multiple-cursors) ------It shows your marked lines read documentation.
- </br>[jupyter-vim](https://github.com/wmvanvliet/jupyter-vim)
+ </br>[jupyter-vim](https://github.com/wmvanvliet/jupyter-vim)------Read documentation
   
   I have been using a lot of colorschemes-->
  </br>[codedark](https://github.com/tomasiser/vim-code-dark)
@@ -121,8 +121,21 @@ You can access you coc-setting.json by command :CocConfig or you can find it in 
    "python.venvPath" : "/Users/username" (Path to my virtualenv)
 
 - "python.sortImports.path":"/Users/username/.venvs/1env/bin/isort", (isort for sorting imports)</br>
-  "clangd.path": "/Users/username/.config/clangd_10.0.0/bin/clangd"  (For C and C++ user, it is my path to clangd)
-  </br>
   Commands:
           </br> * pip install isort
-          </br> * brew install clangd
+          
+
+-   "clangd.semanticHighlighting":true,       (It is for highlighting vim-cxx-.. plugin)</br>
+     "clangd.path": "/Users/username/.config/clangd_10.0.0/bin/clangd"  (For C and C++ user, it is my path to clangd)</br>
+  Commands: 
+      </br> * brew install clangd
+ 
+ </br> For html
+ -  "html.enable":true,</br> 
+  "html.validate.scripts": true,    
+  "html.format.enable":true,</br>
+
+</br>It's for coc-highlight
+  - "coc.preferences.colorSupport": true,</br>       
+    "highlight.colors.enable": true
+
