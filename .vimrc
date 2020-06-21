@@ -1,15 +1,30 @@
 "Setting number as well as relative numbers for ease in scrolling and selection of line.
 set nu
 set rnu
+"Setting history
 set history=1000
-set nocompatible
+set tabstop=4
+set shiftwidth=4
+set termguicolors
+set splitright
+
+if has('vim_starting')
+	if &compatible
+	       set nocompatible
+       endif
+endif
 
 "Syntax enabled.
 syntax on
 filetype plugin indent on
+"packadd! vimspector
 
-"By default I am using zsh shell.
-"set shell=/bin/zsh
+
+"Folding by indent and folding starts at 10 lines.
+set foldmethod=indent
+set foldlevelstart=10
+set foldnestmax=10
+
 
 "Setting the same clipboard for Vim and System.
 set clipboard=unnamed
@@ -28,14 +43,17 @@ set textwidth=79
 "Plugins
 call plug#begin()
 Plug 'scrooloose/nerdtree'
+Plug 'jackguo380/vim-lsp-cxx-highlight'
+Plug 'kshenoy/vim-signature'
 Plug 'luochen1990/rainbow'
 Plug 'Raimondi/delimitMate'
+Plug 'jupyter-vim/jupyter-vim'
+Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
+Plug 'lotabout/skim.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'morhetz/gruvbox'
-Plug 'dracula/vim',{'as':'dracula'}
-Plug 'Vimjas/vim-python-pep8-indent'
-Plug 'nanotech/jellybeans.vim'
-Plug 'jnurmine/zenburn'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-repeat'
+Plug 'vim-scripts/taglist.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'tmhedberg/simpylfold'
@@ -44,42 +62,28 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'ffanzhang/vim-airline-stopwatch'
-Plug 'tomasiser/vim-code-dark'
 Plug 'yggdroot/indentline'
+"colorschemes      ---------------------------------
+Plug 'morhetz/gruvbox'
+Plug 'junegunn/seoul256.vim'
+Plug 'tomasiser/vim-code-dark'
+Plug 'nightsense/cosmic_latte'
+Plug 'arcticicestudio/nord-vim'
+Plug 'dracula/vim',{'as':'dracula'}
+Plug 'kaicataldo/material.vim'
+Plug 'drewtempelmeyer/palenight.vim'
+Plug 'nightsense/stellarized'
+Plug 'nanotech/jellybeans.vim'
+Plug 'jnurmine/zenburn'
 call plug#end()
 
 
 "Shortcut to access NERDTree toggle menu.
-map <C-n> :NERDTreeToggle<CR>
-
-
-"You can't use arrows keys in vim
-"Remapped ctrl+e to go to the end of the line in INSERT mode and ctrl+a to start of the line.
-inoremap <C-e> <C-o>$
-inoremap <C-a> <C-o>0
-
-
-" Remove newbie crutches in Insert Mode
-inoremap <Down> <Nop>
-inoremap <Left> <Nop>
-inoremap <Right> <Nop>
-inoremap <Up> <Nop>
-
-" Remove newbie crutches in Normal Mode
-nnoremap <Down> <Nop>
-nnoremap <Left> <Nop>
-nnoremap <Right> <Nop>
-nnoremap <Up> <Nop>
-
-" Remove newbie crutches in Visual Mode
-vnoremap <Down> <Nop>
-vnoremap <Left> <Nop>
-vnoremap <Right> <Nop>
-vnoremap <Up> <Nop>
+map N :NERDTreeToggle<CR>
 
 
 "Airline configurations
-let g:airline_theme='codedark'
+let g:airline_theme='material'
 let g:airline_powerline_fonts = 1
 set guifont=Source\ Code\ Pro\ for\ Powerline:h14
 let g:airline#extensions#branch#enabled = 1
@@ -87,16 +91,22 @@ let g:airline#extensions#virtualenv#enabled = 1
 let g:airline#extensions#whitespace#enabled = 1
 "let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#coc#enabled = 1
+let g:airline#extensions#coc#error_symbol='✘'
+let g:airline#extensions#coc#warning_symbol='⚠'
 
 
 if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
+	let g:airline_symbols = {}
 endif
 let g:airline_section_c = '%{strftime("%H:%M")}'
 
 
 "ColorScheme is like VScode.
-colorscheme codedark
+colorscheme material
+"set background=dark
+
+let g:material_theme_style = 'default' "| 'palenight' | 'ocean' | 'lighter' | 'darker'
+
 
 "Remove all trailing whitespaces by pressing F5.
 :nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl<Bar> :unlet _s <CR>
@@ -111,14 +121,9 @@ map tT :call airline#extensions#stopwatch#stop()<CR>  "stop
 map tE :call airline#extensions#stopwatch#reset()<CR>  "reset
 map tY :call airline#extensions#stopwatch#summary()<CR> "summary
 
-"Folding by indent and folding starts at 10 lines.
-set foldmethod=indent
-set foldlevelstart=10
-set foldnestmax=10
-
 "Disabling that irritating ERROR bell PHEW!
 if has("gui_macvim")
-    autocmd GUIEnter * set vb t_vb=
+	autocmd GUIEnter * set vb t_vb=
 endif
 
 "These mappings are for easy movements between mutiple splits in VIM.
@@ -128,11 +133,18 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+"Remapped ctrl+e to go to the end of the line in INSERT mode and ctrl+a to start of the line.
+inoremap <C-e> <C-o>$
+inoremap <C-a> <C-o>0
+
 "This will show lines as you indent you code.
 "A real life saver for me.
 let g:indentLine_bgcolor_term = 239
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-
+"indentLine settings for terminal and gui
+autocmd! User indentLine doautocmd indentLine Syntax
+let g:indentLine_color_term = 239
+let g:indentLine_color_gui = 'purple'
 
 "Setting directory for .backup, .swp, .undo files to location I want to.
 set backupdir=.backup/,~/.backup/,/Users/arx6363/vimtemp//
@@ -140,7 +152,7 @@ set directory=.swp/,~/.swp/,/Users/arx6363/vimtemp//
 set undodir=.undo/,~/.undo/,/Users/arx6363/vimtemp//
 
 "Press F2 to execute python files.
-nmap <F2> :CocCommand python.execInTerminal<CR>
+autocmd FileType python nmap <F2> :CocCommand python.execInTerminal<CR>
 
 "Your error and warnings.
 nmap <F3> :CocDiagnostic<CR>
@@ -174,7 +186,7 @@ let g:python_pep8_indent_hang_closing=1
 let g:python_pep8_indent_multiline_string=-1
 
 
-""""""""""""""""""""""""""""""""""""""""From here is the config for coc.nvim plugin."""""""""""""""""""""""""""""""""""""""""""
+""""""""From here is the start for coc.nvim plugin.""""""""""
 
 
 " TextEdit might fail if hidden is not set.
@@ -189,7 +201,7 @@ set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
-set updatetime=300
+set updatetime=750
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
@@ -197,24 +209,24 @@ set shortmess+=c
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 if has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
+	" Recently vim can merge signcolumn and number column into one
+	set signcolumn=number
 else
-  set signcolumn=yes
+	set signcolumn=yes
 endif
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+			\ pumvisible() ? "\<C-n>" :
+			\ <SID>check_back_space() ? "\<TAB>" :
+			\ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " Use ctrl+space in insert mode to trigger completion.
@@ -224,14 +236,14 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " position. Coc only does snippet and additional edit on confirm.
 " <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
 if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+	inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+	inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 
-" Use `ng` and `nn` to navigate diagnostics(ERROR and Warnings)
-nmap <silent> ng <Plug>(coc-diagnostic-prev)
-nmap <silent> nn <Plug>(coc-diagnostic-next)
+" Use `ne` (next-error) and `pe` (previous-error) to navigate diagnostics(ERROR and Warnings)
+nmap <silent> ne <Plug>(coc-diagnostic-prev)
+nmap <silent> pe <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
@@ -243,11 +255,11 @@ nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
+	if (index(['vim','help'], &filetype) >= 0)
+		execute 'h '.expand('<cword>')
+	else
+		call CocAction('doHover')
+	endif
 endfunction
 
 " Highlight the symbol and its references when holding the cursor.
@@ -261,11 +273,11 @@ xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+	autocmd!
+	" Setup formatexpr specified filetype(s).
+	autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+	" Update signature help on jump placeholder.
+	autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
 " Applying codeAction to the selected region.
@@ -325,7 +337,7 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-"""""""""""""""""""""""""""""""""""""""""""""""""""""END"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+-----------------------------""""""""""""""""""""""""""END""""""""""""""""""""""""""""""""""""""""""""""""-----------------
 
 "Expansion of brackets
 "Since now I am using coc.vim so this is the config for DelimitMate
@@ -333,3 +345,138 @@ imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<Plug>delimitMateCR"
 
 "Rainbow Brackets plugin
 let g:rainbow_active = 1
+
+"Jupyter virtual env path
+let g:vim_virtualenv_path = '/Users/arx6363/.venvs/1env'
+if exists('g:vim_virtualenv_path')
+	pythonx import os; import vim
+	pythonx activate_this = os.path.join(vim.eval('g:vim_virtualenv_path'), 'bin/activate_this.py')
+	pythonx with open(activate_this) as f: exec(f.read(), {'__file__': activate_this})
+end
+
+let g:jupyter_mapkeys = 0     "Default mapping of jupyter is disabled.
+
+-------------------------"""""""""jupyter mapped keys""""""""""""""-------------------------------------------------------------
+
+"In terminal type 'jupyter qtconsole' and then in vim type ':JupyterConnect' (use tab) to connect jupyter kernel to vim
+"then you can use these key mappings it is use full in debugging
+
+" Run current file
+nnoremap <buffer> <silent> <Leader>R :JupyterRunFile<CR>
+nnoremap <buffer> <silent> <Leader>I :PythonImportThisFile<CR>
+
+" Change to directory of current file
+nnoremap <buffer> <silent> <Leader>d :JupyterCd %:p:h<CR>
+
+" Send a selection of lines
+nnoremap <buffer> <silent> <Leader>X :JupyterSendCell<CR>
+nnoremap <buffer> <silent> <Leader>E :JupyterSendRange<CR>
+vmap     <buffer> <silent> <Leader>v <Plug>JupyterRunVisual
+
+nnoremap <buffer> <silent> <Leader>U :JupyterUpdateShell<CR>
+
+" Debugging maps
+nnoremap <buffer> <silent> <Leader>b :PythonSetBreak<CR>
+
+"Leader+X Runs the whole file.
+"Leader+E Runs that specific line.
+"Leader+v Runs selected code in visual mode.
+
+""""""""""""END""""""""""""""""""""""""""""""'
+silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
+
+"ColorScheme Setup
+let g:gruvbox_contrast_dark = 'dark'
+let g:seoul256_background = 235
+let g:seoul256_light_background = 253
+
+
+"---------------------------------------------Press F8 to change colorscheme---------------------------------------------------
+function! s:colors(...)
+	return filter(map(filter(split(globpath(&rtp, 'colors/*.vim'), "\n"),
+				\                  'v:val !~ "^/usr/"'),
+				\           'fnamemodify(v:val, ":t:r")'),
+				\       '!a:0 || stridx(v:val, a:1) >= 0')
+endfunction
+
+function! s:rotate_colors()
+	if !exists('s:colors')
+		let s:colors = s:colors()
+	endif
+	let name = remove(s:colors, 0)
+	call add(s:colors, name)
+	execute 'colorscheme' name
+	redraw
+	echo name
+endfunction
+nnoremap <silent> <F8> :call <SID>rotate_colors()<cr>
+
+"skim.vim-------------------------------------------- maps and uses ---------------------------------------------------------------
+
+
+"Leader+L for line search in the current file.
+nnoremap <silent> <Leader>L        :Lines<CR>
+"Leader+B for buffer search.
+nnoremap <silent> <Leader>B  :Buffers<CR>
+"Leader+Enter for file search.
+nnoremap <silent> ff  :SK
+
+" Default fzf layout
+" - down / up / left / right
+let g:skim_layout = { 'down': '~40%' }
+
+" In Neovim, you can set up fzf window using a Vim command
+let g:skim_layout = { 'window': 'enew' }
+let g:skim_layout = { 'window': '-tabnew' }
+let g:skim_layout = { 'window': '10new' }
+
+" Customize fzf colors to match your color scheme
+let g:skim_colors =
+			\ { 'fg':      ['fg', 'Normal'],
+			\ 'bg':      ['bg', 'Normal'],
+			\ 'hl':      ['fg', 'Comment'],
+			\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+			\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+			\ 'hl+':     ['fg', 'Statement'],
+			\ 'info':    ['fg', 'PreProc'],
+			\ 'border':  ['fg', 'Ignore'],
+			\ 'prompt':  ['fg', 'Conditional'],
+			\ 'pointer': ['fg', 'Exception'],
+			\ 'marker':  ['fg', 'Keyword'],
+			\ 'spinner': ['fg', 'Label'],
+			\ 'header':  ['fg', 'Comment'] }
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:skim_history_dir = '/Users/arx6363/vimtemp/skim_his'
+
+
+"----------------------- Vim-multiple-cursor-config --------------------------------------------------
+let g:multi_cursor_use_default_mapping=1
+
+" Default mapping
+let g:multi_cursor_start_word_key      = '<C-n>'
+let g:multi_cursor_select_all_word_key = '<A-n>'
+let g:multi_cursor_start_key           = 'g<C-n>'
+let g:multi_cursor_select_all_key      = 'g<A-n>'
+let g:multi_cursor_next_key            = '<C-n>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
+
+"--------------------------------------------------------- Coc-highlight ------------------------------------------------------
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+
+"-------------------------------------typescript vue and yaml -------------------------------------------------------------------------------------------
+autocmd FileType typescript, vue, yaml :set sw=2 ts=2
+
+"let g:vimspector_enable_mappings = 'HUMAN'
+"----------------------------------------------------- Vim-lsp ------------------------------------------------------------------
+let g:markdown_fenced_languages = [
+      \ 'vim',
+      \ 'help'
+      \]
+
