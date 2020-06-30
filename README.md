@@ -28,6 +28,7 @@ Some basic things, I use frequently in vim
 4. Most used commenting feature that comes with NERDcommentor.
  </br> Press Leader+cs - To comment out the whole line your cursor is on.
  </br>Press Leader+c$ - To comment from where your cursor is to the end of the line.
+ 
  5.fzf.vim ---> Very use full plug, for searching file and inside files.Just :FZF or ff+Enter for files or <Leader>L for searching lines of the current buffer. It changes workflow entirely.
 
 
