@@ -3,6 +3,11 @@
   "coc.preferences.formatOnSaveFiletypes": ["python"],
   "coc.preferences.formatOnTypeFiletypes":["python"],
   "diagnostic.errorSign": "✘",
+  "diagnostic.infoSign": "ℹ",
+  "diagnostic.hintSign": "➤",
+  "diagnostic.enableHighlightLineNumber": true,
+  "codeLens.enable": true,
+  "signature.enable": true,
 
 
   "python.autoUpdateLanguageServer": true,

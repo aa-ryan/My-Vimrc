@@ -2,6 +2,7 @@
 I am getting started with vim , for python. 
 </br>(edit1 - It's been a while I have been using vim for not only python but C and C++ also.)
 </br> (edit2  - It's major upgrade now in my vimrc, will be adding a new file coc-setting.json.)
+</br> (Now I know about releases so no more edit updates) 
 I started using **[coc.nvim](https://github.com/neoclide/coc.nvim)** and it's really a game changer.
 
 </br>***Added lot of comments to .vimrc file to make it readable and to understand commands.***
@@ -18,7 +19,7 @@ After you install coc.nvim you need to run these commands.
 * :CocInstall coc-json        (Json - support)
 * :CocInstall coc-vimlsp      (VimL - support)
 
-
+Remapped <F1> so that it acts like escape that help window is so annoying.
 Some basic things, I use frequently in vim
 
 1. Leader key is set to SPACEBAR.
@@ -27,7 +28,8 @@ Some basic things, I use frequently in vim
 4. Most used commenting feature that comes with NERDcommentor.
  </br> Press Leader+cs - To comment out the whole line your cursor is on.
  </br>Press Leader+c$ - To comment from where your cursor is to the end of the line.
- 5.Skim.vim ---> Very use full plug, for searching file and inside files.Just :SK or <Leader>ff for files or <Leader>L for searching lines inside files. It changes workflow entirely.
+ 
+ 5.fzf.vim ---> Very use full plug, for searching file and inside files.Just :FZF or ff+Enter for files or <Leader>L for searching lines of the current buffer. It changes workflow entirely.
 
 
 
@@ -42,7 +44,7 @@ Some basic things, I use frequently in vim
  [fugitive](https://github.com/tpope/vim-fugitive)
  </br>[airline](https://github.com/vim-airline/vim-airline)
  </br>[simpylfold](https://github.com/tmhedberg/simpylfold)
- </br>[delimitmate](https://github.com/raimondi/delimitmate)
+ </br>[autopairs](https://github.com/jiangmiao/auto-pairs)
  </br>[airline-themes](https://github.com/vim-airline/vim-airline-themes)
  </br>[nerdcommenter](https://github.com/preservim/nerdcommenter)
  </br>[vim-surround](https://github.com/tpope/vim-surround)
@@ -138,4 +140,4 @@ You can access you coc-setting.json by command :CocConfig or you can find it in 
 </br>It's for coc-highlight
   - "coc.preferences.colorSupport": true,</br>       
     "highlight.colors.enable": true
-
+</br> Some extra settings like codelens is also enabled.

@@ -1,12 +1,19 @@
+"BASIC SETTINGS
 "Setting number as well as relative numbers for ease in scrolling and selection of line.
 set nu
 set rnu
-"Setting history
 set history=1000
 set tabstop=4
 set shiftwidth=4
-set termguicolors
+set t_Co=256
 set splitright
+set confirm
+set showbreak=↪
+set cursorline
+set incsearch
+set ignorecase
+set showcmd
+set foldcolumn=2
 
 if has('vim_starting')
 	if &compatible
@@ -17,14 +24,15 @@ endif
 "Syntax enabled.
 syntax on
 filetype plugin indent on
-"packadd! vimspector
 
-
-"Folding by indent and folding starts at 10 lines.
-set foldmethod=indent
+"Code Folding
+set foldenable
+set foldmethod=manual
 set foldlevelstart=10
-set foldnestmax=10
+set foldnestmax=100
 
+autocmd BufWinLeave .* mkview
+autocmd BufWinEnter .* silent loadview
 
 "Setting the same clipboard for Vim and System.
 set clipboard=unnamed
@@ -39,6 +47,15 @@ set textwidth=79
 "This is your leader key
 :let mapleader = "\<Space>"
 
+"Disabling that irritating ERROR bell PHEW!
+if has("gui_macvim")
+	autocmd GUIEnter * set vb t_vb=
+endif
+
+"Setting directory for .backup, .swp, .undo files to location I want to.
+set backupdir=.backup/,~/.backup/,/Users/arx6363/vimtemp//
+set directory=.swp/,~/.swp/,/Users/arx6363/vimtemp//
+set undodir=.undo/,~/.undo/,/Users/arx6363/vimtemp//
 
 "Plugins
 call plug#begin()
@@ -46,14 +63,12 @@ Plug 'scrooloose/nerdtree'
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'kshenoy/vim-signature'
 Plug 'luochen1990/rainbow'
-Plug 'Raimondi/delimitMate'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'jupyter-vim/jupyter-vim'
-Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
-Plug 'lotabout/skim.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-repeat'
-Plug 'vim-scripts/taglist.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'tmhedberg/simpylfold'
@@ -63,6 +78,8 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'ffanzhang/vim-airline-stopwatch'
 Plug 'yggdroot/indentline'
+Plug 'jiangmiao/auto-pairs'
+
 "colorschemes      ---------------------------------
 Plug 'morhetz/gruvbox'
 Plug 'junegunn/seoul256.vim'
@@ -77,54 +94,30 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'jnurmine/zenburn'
 call plug#end()
 
-
-"Shortcut to access NERDTree toggle menu.
-map N :NERDTreeToggle<CR>
-
-
-"Airline configurations
-let g:airline_theme='material'
-let g:airline_powerline_fonts = 1
-set guifont=Source\ Code\ Pro\ for\ Powerline:h14
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#virtualenv#enabled = 1
-let g:airline#extensions#whitespace#enabled = 1
-"let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#coc#enabled = 1
-let g:airline#extensions#coc#error_symbol='✘'
-let g:airline#extensions#coc#warning_symbol='⚠'
-
-
-if !exists('g:airline_symbols')
-	let g:airline_symbols = {}
-endif
-let g:airline_section_c = '%{strftime("%H:%M")}'
-
-
-"ColorScheme is like VScode.
+"ColorScheme
 colorscheme material
-"set background=dark
+set background=dark
 
 let g:material_theme_style = 'default' "| 'palenight' | 'ocean' | 'lighter' | 'darker'
 
+"ColorScheme Setup
+let g:gruvbox_contrast_dark = 'dark'
+let g:seoul256_background = 235
+let g:seoul256_light_background = 253
+let g:AutoPairsMapBS = 1
 
+"Trailing whitespaces
 "Remove all trailing whitespaces by pressing F5.
 :nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl<Bar> :unlet _s <CR>
 
 "Automatically remove all trailing whitespaces on saving file.
 autocmd BufWritePre * :%s/\s\+$//e
 
-"StopClock for time management, See the key bindings.
-map tR :call airline#extensions#stopwatch#run()<CR>. "run
-map tS :call airline#extensions#stopwatch#split()<CR> "split
-map tT :call airline#extensions#stopwatch#stop()<CR>  "stop
-map tE :call airline#extensions#stopwatch#reset()<CR>  "reset
-map tY :call airline#extensions#stopwatch#summary()<CR> "summary
+"Mappings and Plug config
+"Shortcut to access NERDTree toggle menu.
+map N :NERDTreeToggle<CR>
 
-"Disabling that irritating ERROR bell PHEW!
-if has("gui_macvim")
-	autocmd GUIEnter * set vb t_vb=
-endif
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 "These mappings are for easy movements between mutiple splits in VIM.
 "Ex- Press ctrl+j to go to split just below your cursor.
@@ -144,13 +137,50 @@ let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 "indentLine settings for terminal and gui
 autocmd! User indentLine doautocmd indentLine Syntax
 let g:indentLine_color_term = 239
-let g:indentLine_color_gui = 'purple'
+let g:indentLine_color_gui = 'yellow'
 
-"Setting directory for .backup, .swp, .undo files to location I want to.
-set backupdir=.backup/,~/.backup/,/Users/arx6363/vimtemp//
-set directory=.swp/,~/.swp/,/Users/arx6363/vimtemp//
-set undodir=.undo/,~/.undo/,/Users/arx6363/vimtemp//
+"Use of python's virtual envoirments.
+let g:virtualenv_directory = '/Users/arx6363/.venvs'
 
+"Rainbow Brackets plugin
+let g:rainbow_active = 1
+
+"Jupyter virtual env path
+let g:vim_virtualenv_path = '/Users/arx6363/.venvs/1env'
+if exists('g:vim_virtualenv_path')
+	pythonx import os; import vim
+	pythonx activate_this = os.path.join(vim.eval('g:vim_virtualenv_path'), 'bin/activate_this.py')
+	pythonx with open(activate_this) as f: exec(f.read(), {'__file__': activate_this})
+end
+
+"Airline configurations
+let g:airline_theme='material'
+let g:airline_powerline_fonts = 1
+set guifont=Source\ Code\ Pro\ for\ Powerline:h14
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#virtualenv#enabled = 1
+let g:airline#extensions#whitespace#enabled = 1
+"let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#coc#enabled = 1
+let g:airline#extensions#coc#error_symbol='✘'
+let g:airline#extensions#coc#warning_symbol='⚠'
+let g:airline#extensions#tabline#enabled = 1
+
+
+if !exists('g:airline_symbols')
+	let g:airline_symbols = {}
+endif
+let g:airline_section_c = '%{strftime("%H:%M")}'
+
+"StopClock for time management, See the key bindings.
+map tR :call airline#extensions#stopwatch#run()<CR>. "run
+map tS :call airline#extensions#stopwatch#split()<CR> "split
+map tT :call airline#extensions#stopwatch#stop()<CR>  "stop
+map tE :call airline#extensions#stopwatch#reset()<CR>  "reset
+map tY :call airline#extensions#stopwatch#summary()<CR> "summary
+
+
+"Execution of programs
 "Press F2 to execute python files.
 autocmd FileType python nmap <F2> :CocCommand python.execInTerminal<CR>
 
@@ -172,18 +202,6 @@ autocmd FileType c,cpp :set expandtab
 
 "Reload .vimrc when changes are made.
 autocmd bufwritepost .vimrc source $MYVIMRC
-
-
-"Abbreviation
-iabbrev #i #include<stdio.h>
-iabbrev #d #define
-
-"Use of python's virtual envoirments.
-let g:virtualenv_directory = '/Users/arx6363/.venvs'
-
-"To follow pep8 indent
-let g:python_pep8_indent_hang_closing=1
-let g:python_pep8_indent_multiline_string=-1
 
 
 """"""""From here is the start for coc.nvim plugin.""""""""""
@@ -337,29 +355,12 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-"-----------------------------""""""""""""""""""""""""""END""""""""""""""""""""""""""""""""""""""""""""""""-----------------
+""""""""""""""""""""""""""END""""""""""""""""""""""""""""""""""""""""""""""""
 
-"Expansion of brackets
-"Since now I am using coc.vim so this is the config for DelimitMate
-imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<Plug>delimitMateCR"
+"""""""""jupyter mapped keys""""""""""""""
 
-"Rainbow Brackets plugin
-let g:rainbow_active = 1
+let g:jupyter_mapkeys = 0
 
-"Jupyter virtual env path
-let g:vim_virtualenv_path = '/Users/arx6363/.venvs/1env'
-if exists('g:vim_virtualenv_path')
-	pythonx import os; import vim
-	pythonx activate_this = os.path.join(vim.eval('g:vim_virtualenv_path'), 'bin/activate_this.py')
-	pythonx with open(activate_this) as f: exec(f.read(), {'__file__': activate_this})
-end
-
-let g:jupyter_mapkeys = 0     "Default mapping of jupyter is disabled.
-
-"-------------------------"""""""""jupyter mapped keys""""""""""""""-------------------------------------------------------------
-
-"In terminal type 'jupyter qtconsole' and then in vim type ':JupyterConnect' (use tab) to connect jupyter kernel to vim
-"then you can use these key mappings it is use full in debugging
 
 " Run current file
 nnoremap <buffer> <silent> <Leader>R :JupyterRunFile<CR>
@@ -385,13 +386,9 @@ nnoremap <buffer> <silent> <Leader>b :PythonSetBreak<CR>
 """"""""""""END""""""""""""""""""""""""""""""'
 silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
 
-"ColorScheme Setup
-let g:gruvbox_contrast_dark = 'dark'
-let g:seoul256_background = 235
-let g:seoul256_light_background = 253
 
 
-"---------------------------------------------Press F8 to change colorscheme---------------------------------------------------
+"Press F8 to change colorscheme---------------------------------
 function! s:colors(...)
 	return filter(map(filter(split(globpath(&rtp, 'colors/*.vim'), "\n"),
 				\                  'v:val !~ "^/usr/"'),
@@ -411,49 +408,60 @@ function! s:rotate_colors()
 endfunction
 nnoremap <silent> <F8> :call <SID>rotate_colors()<cr>
 
-"skim.vim-------------------------------------------- maps and uses ---------------------------------------------------------------
+
+"fzf.vim-------------------maps and uses----------------------
 
 
 "Leader+L for line search in the current file.
-nnoremap <silent> <Leader>L        :Lines<CR>
+nnoremap <silent> <Leader>L   :BLines<CR>
 "Leader+B for buffer search.
 nnoremap <silent> <Leader>B  :Buffers<CR>
-"Leader+Enter for file search.
-nnoremap <silent> ff  :SK
+"Leader+ff+Enter for file search.
+nnoremap <silent> ff :Files
+
+command! -bang DesktopFiles call fzf#vim#files('~/Desktop', <bang>0)
+nmap <Leader>_ :DesktopFiles<CR>
 
 " Default fzf layout
 " - down / up / left / right
-let g:skim_layout = { 'down': '~40%' }
+"let g:fzf_layout = { 'down': '~60%' }
 
-" In Neovim, you can set up fzf window using a Vim command
-let g:skim_layout = { 'window': 'enew' }
-let g:skim_layout = { 'window': '-tabnew' }
-let g:skim_layout = { 'window': '10new' }
+"" In Neovim, you can set up fzf window using a Vim command
+"let g:fzf_layout = { 'window': 'enew' }
+"let g:fzf_layout = { 'window': '-tabnew' }
+"let g:fzf_layout = { 'window': '10new' }
 
-" Customize fzf colors to match your color scheme
-let g:skim_colors =
-			\ { 'fg':      ['fg', 'Normal'],
-			\ 'bg':      ['bg', 'Normal'],
-			\ 'hl':      ['fg', 'Comment'],
-			\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-			\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-			\ 'hl+':     ['fg', 'Statement'],
-			\ 'info':    ['fg', 'PreProc'],
-			\ 'border':  ['fg', 'Ignore'],
-			\ 'prompt':  ['fg', 'Conditional'],
-			\ 'pointer': ['fg', 'Exception'],
-			\ 'marker':  ['fg', 'Keyword'],
-			\ 'spinner': ['fg', 'Label'],
-			\ 'header':  ['fg', 'Comment'] }
-
-" Enable per-command history.
+"" Enable per-command history.
 " CTRL-N and CTRL-P will be automatically bound to next-history and
 " previous-history instead of down and up. If you don't like the change,
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
-let g:skim_history_dir = '/Users/arx6363/vimtemp/skim_his'
+let g:fzf_history_dir = '/Users/arx6363/vimtemp/skim_his'
+let g:fzf_files_options =
+			\ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-l> <plug>(fzf-complete-line)
 
 
-"----------------------- Vim-multiple-cursor-config --------------------------------------------------
+command! AirlineThemes call fzf#run({
+  \ 'source':  map(split(globpath(&rtp, 'autoload/airline/themes/*.vim'), "\n"),
+  \               "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"),
+  \ 'sink':    'AirlineTheme',
+  \ 'options': '+m --prompt="Airline Themes> "',
+  \ 'down':    '~40%'
+  \})
+
+nmap <F9> :AirlineThemes
+"-------------------------------------------------------------------------
+
+"--------multi_cursor-----------------------------------------------------------------
 let g:multi_cursor_use_default_mapping=1
 
 " Default mapping
@@ -466,17 +474,33 @@ let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
 
-"--------------------------------------------------------- Coc-highlight ------------------------------------------------------
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-
-"-------------------------------------typescript vue and yaml -------------------------------------------------------------------------------------------
+"------------typescript vue and yaml--------------------------------
 autocmd FileType typescript, vue, yaml :set sw=2 ts=2
 
-"let g:vimspector_enable_mappings = 'HUMAN'
-"----------------------------------------------------- Vim-lsp ------------------------------------------------------------------
 let g:markdown_fenced_languages = [
       \ 'vim',
       \ 'help'
       \]
+
+
+" Return to last edit position when opening a file
+augroup resume_edit_position
+    autocmd!
+    autocmd BufReadPost *
+        \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+        \ | execute "normal! g`\"zvzz"
+        \ | endif
+augroup END
+
+
+inoremap <F1> <Esc>
+noremap <F1> :call MapF1()<CR>
+
+function! MapF1()
+  if &buftype == "help"
+    exec 'quit'
+  else
+    exec 'help'
+  endif
+endfunction
 
