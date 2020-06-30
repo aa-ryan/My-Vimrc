@@ -18,7 +18,7 @@ After you install coc.nvim you need to run these commands.
 * :CocInstall coc-json        (Json - support)
 * :CocInstall coc-vimlsp      (VimL - support)
 
-
+Remapped <F1> so that it acts like escape that help window is so annoying.
 Some basic things, I use frequently in vim
 
 1. Leader key is set to SPACEBAR.
