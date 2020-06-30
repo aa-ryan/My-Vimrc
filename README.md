@@ -2,6 +2,7 @@
 I am getting started with vim , for python. 
 </br>(edit1 - It's been a while I have been using vim for not only python but C and C++ also.)
 </br> (edit2  - It's major upgrade now in my vimrc, will be adding a new file coc-setting.json.)
+</br> (Now I know about releases so no more edit updates) 
 I started using **[coc.nvim](https://github.com/neoclide/coc.nvim)** and it's really a game changer.
 
 </br>***Added lot of comments to .vimrc file to make it readable and to understand commands.***
