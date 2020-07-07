@@ -1,6 +1,5 @@
 {
   "coc.preferences.formatOnType":true,
-  "coc.preferences.formatOnSaveFiletypes": ["python"],
   "coc.preferences.formatOnTypeFiletypes":["python"],
   "diagnostic.errorSign": "✘",
   "diagnostic.infoSign": "ℹ",
@@ -30,7 +29,6 @@
   "python.venvFolders": [".venvs"],
   "python.venvPath" : "/Users/arx6363",
 
-  "python.sortImports.path":"/Users/arx6363/.venvs/1env/bin/isort",
 
   "clangd.semanticHighlighting":true,
   "clangd.path": "/Users/arx6363/.config/coc/extensions/coc-clangd-data/install/10.0.0/clangd_10.0.0/bin/clangd",
