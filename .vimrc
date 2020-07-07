@@ -68,7 +68,6 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'terryma/vim-multiple-cursors'
-Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
@@ -118,6 +117,8 @@ autocmd BufWritePre * :%s/\s\+$//e
 "Mappings and Plug config
 "Shortcut to access NERDTree toggle menu.
 map N :NERDTreeToggle<CR>
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 "These mappings are for easy movements between mutiple splits in VIM.
 "Ex- Press ctrl+j to go to split just below your cursor.
@@ -465,11 +466,11 @@ inoremap <F1> <Esc>
 noremap <F1> :call MapF1()<CR>
 
 function! MapF1()
-	if &buftype == "help"
-		exec 'quit'
-	else
-		exec 'help'
-	endif
+  if &buftype == "help"
+	exec 'quit'
+  else
+	exec 'help'
+  endif
 endfunction
 
 
