@@ -17,8 +17,8 @@ set foldcolumn=2
 
 if has('vim_starting')
 	if &compatible
-	       set nocompatible
-       endif
+		set nocompatible
+	endif
 endif
 
 "Syntax enabled.
@@ -60,14 +60,15 @@ set undodir=.undo/,~/.undo/,/Users/arx6363/vimtemp//
 "Plugins
 call plug#begin()
 Plug 'scrooloose/nerdtree'
-Plug 'jackguo380/vim-lsp-cxx-highlight'
+"Plug 'jackguo380/vim-lsp-cxx-highlight'
+Plug 'plasticboy/vim-markdown'
 Plug 'kshenoy/vim-signature'
 Plug 'luochen1990/rainbow'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'jupyter-vim/jupyter-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
@@ -105,6 +106,7 @@ let g:gruvbox_contrast_dark = 'dark'
 let g:seoul256_background = 235
 let g:seoul256_light_background = 253
 let g:AutoPairsMapBS = 1
+let g:vim_markdown_conceal = 0
 
 "Trailing whitespaces
 "Remove all trailing whitespaces by pressing F5.
@@ -116,8 +118,6 @@ autocmd BufWritePre * :%s/\s\+$//e
 "Mappings and Plug config
 "Shortcut to access NERDTree toggle menu.
 map N :NERDTreeToggle<CR>
-
-autocmd CursorHold * silent call CocActionAsync('highlight')
 
 "These mappings are for easy movements between mutiple splits in VIM.
 "Ex- Press ctrl+j to go to split just below your cursor.
@@ -132,11 +132,11 @@ inoremap <C-a> <C-o>0
 
 "This will show lines as you indent you code.
 "A real life saver for me.
-let g:indentLine_bgcolor_term = 239
+"let g:indentLine_bgcolor_term = 239
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 "indentLine settings for terminal and gui
 autocmd! User indentLine doautocmd indentLine Syntax
-let g:indentLine_color_term = 239
+let g:indentLine_color_term = 'yellow'
 let g:indentLine_color_gui = 'yellow'
 
 "Use of python's virtual envoirments.
@@ -160,7 +160,6 @@ set guifont=Source\ Code\ Pro\ for\ Powerline:h14
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#virtualenv#enabled = 1
 let g:airline#extensions#whitespace#enabled = 1
-"let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#coc#enabled = 1
 let g:airline#extensions#coc#error_symbol='✘'
 let g:airline#extensions#coc#warning_symbol='⚠'
@@ -192,8 +191,11 @@ nmap <F3> :CocDiagnostic<CR>
 autocmd filetype javascript nnoremap <buffer><F2> :w<CR>:!clear;node %<CR>
 
 "Press F2 to compile and execute c and cpp files.
-autocmd FileType c nnoremap <buffer> <F2> :w<CR>:!gcc -o %< % && ./%< <CR>
-autocmd FileType cpp nnoremap <buffer> <F2> :w<CR>:!g++ -o %< % && ./%< <CR>
+"autocmd FileType c nnoremap <buffer> <F2> :w<CR>:!gcc -o %< % && ./%< <CR>
+"autocmd FileType cpp nnoremap <buffer> <F2> :w<CR>:!g++ -o %< % && ./%< <CR>
+"au FileType c,cpp nnoremap <buffer> <F6> :w<CR> :make %<<CR>
+"au FileType c,cpp nnoremap <buffer> <F7> :vsp<CR> :term ./%<<CR>
+au FileType c,cpp nnoremap <buffer> <F2> :w<CR> :make %<<CR> :term ./%<<CR>
 
 "This is for c and cpp
 autocmd FileType c,cpp :set cindent
@@ -219,7 +221,7 @@ set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
-set updatetime=750
+set updatetime=300
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
@@ -357,31 +359,6 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 """"""""""""""""""""""""""END""""""""""""""""""""""""""""""""""""""""""""""""
 
-"""""""""jupyter mapped keys""""""""""""""
-
-let g:jupyter_mapkeys = 0
-
-
-" Run current file
-nnoremap <buffer> <silent> <Leader>R :JupyterRunFile<CR>
-nnoremap <buffer> <silent> <Leader>I :PythonImportThisFile<CR>
-
-" Change to directory of current file
-nnoremap <buffer> <silent> <Leader>d :JupyterCd %:p:h<CR>
-
-" Send a selection of lines
-nnoremap <buffer> <silent> <Leader>X :JupyterSendCell<CR>
-nnoremap <buffer> <silent> <Leader>E :JupyterSendRange<CR>
-vmap     <buffer> <silent> <Leader>v <Plug>JupyterRunVisual
-
-nnoremap <buffer> <silent> <Leader>U :JupyterUpdateShell<CR>
-
-" Debugging maps
-nnoremap <buffer> <silent> <Leader>b :PythonSetBreak<CR>
-
-"Leader+X Runs the whole file.
-"Leader+E Runs that specific line.
-"Leader+v Runs selected code in visual mode.
 
 """"""""""""END""""""""""""""""""""""""""""""'
 silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
@@ -451,12 +428,12 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 
 
 command! AirlineThemes call fzf#run({
-  \ 'source':  map(split(globpath(&rtp, 'autoload/airline/themes/*.vim'), "\n"),
-  \               "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"),
-  \ 'sink':    'AirlineTheme',
-  \ 'options': '+m --prompt="Airline Themes> "',
-  \ 'down':    '~40%'
-  \})
+			\ 'source':  map(split(globpath(&rtp, 'autoload/airline/themes/*.vim'), "\n"),
+			\               "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"),
+			\ 'sink':    'AirlineTheme',
+			\ 'options': '+m --prompt="Airline Themes> "',
+			\ 'down':    '~40%'
+			\})
 
 nmap <F9> :AirlineThemes
 "-------------------------------------------------------------------------
@@ -478,18 +455,17 @@ let g:multi_cursor_quit_key            = '<Esc>'
 autocmd FileType typescript, vue, yaml :set sw=2 ts=2
 
 let g:markdown_fenced_languages = [
-      \ 'vim',
-      \ 'help'
-      \]
-
+			\ 'vim',
+			\ 'help'
+			\]
 
 " Return to last edit position when opening a file
 augroup resume_edit_position
-    autocmd!
-    autocmd BufReadPost *
-        \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-        \ | execute "normal! g`\"zvzz"
-        \ | endif
+	autocmd!
+	autocmd BufReadPost *
+				\ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+				\ | execute "normal! g`\"zvzz"
+				\ | endif
 augroup END
 
 
@@ -497,10 +473,32 @@ inoremap <F1> <Esc>
 noremap <F1> :call MapF1()<CR>
 
 function! MapF1()
-  if &buftype == "help"
-    exec 'quit'
-  else
-    exec 'help'
-  endif
+	if &buftype == "help"
+		exec 'quit'
+	else
+		exec 'help'
+	endif
 endfunction
 
+
+"Cursor style while using terminal
+"Mode Settings
+
+let &t_SI.="\e[5 q" "SI = INSERT modeare you ready for some code if yes tell yeah for you
+let &t_SR.="\e[4 q" "SR = REPLACE mode
+let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
+set ttimeout
+set ttimeoutlen=1
+"Cursor settings:
+"  1 -> blinking block
+"  2 -> solid block
+"  3 -> blinking underscore
+"  4 -> solid underscore
+"  5 -> blinking vertical bar
+"  6 -> solid vertical bar
+"
+"
+command! -nargs=* -complete=dir Cd call fzf#run(fzf#wrap(
+			\ {'source': 'find '.(empty(<f-args>) ? '.' : <f-args>).' -type d',
+			\  'sink': 'cd'}))
+			
