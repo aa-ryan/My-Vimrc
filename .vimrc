@@ -145,14 +145,6 @@ let g:virtualenv_directory = '/Users/arx6363/.venvs'
 "Rainbow Brackets plugin
 let g:rainbow_active = 1
 
-"Jupyter virtual env path
-let g:vim_virtualenv_path = '/Users/arx6363/.venvs/1env'
-if exists('g:vim_virtualenv_path')
-	pythonx import os; import vim
-	pythonx activate_this = os.path.join(vim.eval('g:vim_virtualenv_path'), 'bin/activate_this.py')
-	pythonx with open(activate_this) as f: exec(f.read(), {'__file__': activate_this})
-end
-
 "Airline configurations
 let g:airline_theme='material'
 let g:airline_powerline_fonts = 1
@@ -497,8 +489,6 @@ set ttimeoutlen=1
 "  5 -> blinking vertical bar
 "  6 -> solid vertical bar
 "
-"
 command! -nargs=* -complete=dir Cd call fzf#run(fzf#wrap(
 			\ {'source': 'find '.(empty(<f-args>) ? '.' : <f-args>).' -type d',
 			\  'sink': 'cd'}))
-			
