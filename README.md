@@ -60,11 +60,11 @@ Some basic things, I use frequently in vim
  </br>[virtualenv](https://github.com/jmcantrell/vim-virtualenv)
  </br>[vim-lsp-cxx-highlight](https://github.com/jackguo380/vim-lsp-cxx-highlight)
  </br>[taglist](https://github.com/vim-scripts/taglist.vim)----------I mainly use :Tlist command to see my function and declarations at once.
- </br>[skim](https://github.com/lotabout/skim.vim) 
+ </br>[fzf](https://github.com/junegunn/fzf.vim) 
  </br>[vim-repeat](https://github.com/tpope/vim-repeat)
  </br>[vim-muliple-cursor](https://github.com/terryma/vim-multiple-cursors)---Read it's documentation for sure it's amazing.
  </br>[vim-signature](https://github.com/terryma/vim-multiple-cursors) ------It shows your marked lines read documentation.
- </br>[jupyter-vim](https://github.com/wmvanvliet/jupyter-vim)------Read documentation
+ </br>[plasticboy](https://github.com/plasticboy/vim-markdown)
   
   I have been using a lot of colorschemes-->
  </br>[codedark](https://github.com/tomasiser/vim-code-dark)
