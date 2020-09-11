@@ -1,6 +1,7 @@
 "BASIC SETTINGS
 "Setting number as well as relative numbers for ease in scrolling and selection of line.
 set nu
+set shell=/bin/bash
 set rnu
 set history=1000
 set tabstop=4
@@ -14,6 +15,7 @@ set incsearch
 set ignorecase
 set showcmd
 set foldcolumn=2
+
 
 if has('vim_starting')
 	if &compatible
@@ -68,6 +70,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'terryma/vim-multiple-cursors'
+Plug 'whatyouhide/vim-gotham'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
@@ -79,6 +82,7 @@ Plug 'tpope/vim-surround'
 Plug 'ffanzhang/vim-airline-stopwatch'
 Plug 'yggdroot/indentline'
 Plug 'jiangmiao/auto-pairs'
+Plug 'honza/vim-snippets'
 
 "colorschemes      ---------------------------------
 Plug 'morhetz/gruvbox'
@@ -95,7 +99,7 @@ Plug 'jnurmine/zenburn'
 call plug#end()
 
 "ColorScheme
-colorscheme material
+colorscheme dracula
 set background=dark
 
 let g:material_theme_style = 'default' "| 'palenight' | 'ocean' | 'lighter' | 'darker'
@@ -106,6 +110,7 @@ let g:seoul256_background = 235
 let g:seoul256_light_background = 253
 let g:AutoPairsMapBS = 1
 let g:vim_markdown_conceal = 0
+let g:NERDTreeWinPos='right'
 
 "Trailing whitespaces
 "Remove all trailing whitespaces by pressing F5.
@@ -137,8 +142,8 @@ inoremap <C-a> <C-o>0
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 "indentLine settings for terminal and gui
 autocmd! User indentLine doautocmd indentLine Syntax
-let g:indentLine_color_term = 'yellow'
-let g:indentLine_color_gui = 'yellow'
+"let g:indentLine_color_term = 'yellow'
+"let g:indentLine_color_gui = 'yellow'
 
 "Use of python's virtual envoirments.
 let g:virtualenv_directory = '/Users/arx6363/.venvs'
@@ -147,7 +152,7 @@ let g:virtualenv_directory = '/Users/arx6363/.venvs'
 let g:rainbow_active = 1
 
 "Airline configurations
-let g:airline_theme='material'
+let g:airline_theme='dracula'
 let g:airline_powerline_fonts = 1
 set guifont=Source\ Code\ Pro\ for\ Powerline:h14
 let g:airline#extensions#branch#enabled = 1
@@ -174,8 +179,7 @@ map tY :call airline#extensions#stopwatch#summary()<CR> "summary
 
 "Execution of programs
 "Press F2 to execute python files.
-autocmd FileType python nmap <F2> :CocCommand python.execInTerminal<CR>
-
+autocmd FileType python nmap <F2> :w<CR> :term python3 %<CR>
 "Your error and warnings.
 nmap <F3> :CocDiagnostic<CR>
 
@@ -189,6 +193,8 @@ autocmd filetype javascript nnoremap <buffer><F2> :w<CR>:!clear;node %<CR>
 "au FileType c,cpp nnoremap <buffer> <F6> :w<CR> :make %<<CR>
 "au FileType c,cpp nnoremap <buffer> <F7> :vsp<CR> :term ./%<<CR>
 au FileType c,cpp nnoremap <buffer> <F2> :w<CR> :make %<<CR> :term ./%<<CR>
+
+au FileType rust nnoremap <buffer> <F2> :RustRun<CR>
 
 "This is for c and cpp
 autocmd FileType c,cpp :set cindent
@@ -214,7 +220,7 @@ set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
-set updatetime=300
+set updatetime=750
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
@@ -407,7 +413,8 @@ nmap <Leader>_ :DesktopFiles<CR>
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
 let g:fzf_history_dir = '/Users/arx6363/vimtemp/skim_his'
 let g:fzf_files_options =
-			\ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+			\ '--preview "(coderay {} || bat {}) 2> /dev/null | head -'.&lines.'"'
+let g:fzf_layout = {'window' : {'width' : 0.8, 'height' : 0.8}}
 
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)
@@ -476,12 +483,13 @@ endfunction
 
 "Cursor style while using terminal
 "Mode Settings
-
-let &t_SI.="\e[5 q" "SI = INSERT modeare you ready for some code if yes tell yeah for you
-let &t_SR.="\e[4 q" "SR = REPLACE mode
-let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
-set ttimeout
-set ttimeoutlen=1
+" these are optional if want to change cursor style in terminal vim uncomment
+" next 5 lines
+"let &t_SI.="\e[5 q" "SI = INSERT modeare you ready for some code if yes tell yeah for you
+"let &t_SR.="\e[4 q" "SR = REPLACE mode
+"let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
+"set ttimeout
+"set ttimeoutlen=1
 "Cursor settings:
 "  1 -> blinking block
 "  2 -> solid block
@@ -493,3 +501,35 @@ set ttimeoutlen=1
 command! -nargs=* -complete=dir Cd call fzf#run(fzf#wrap(
 			\ {'source': 'find '.(empty(<f-args>) ? '.' : <f-args>).' -type d',
 			\  'sink': 'cd'}))
+
+
+"---UltiSnips---
+"
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
