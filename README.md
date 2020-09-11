@@ -56,6 +56,7 @@ Some basic things, I use frequently in vim
  </br>[coc.vimlsp](https://github.com/iamcco/coc-vimlsp)
  </br>[coc.json](https://github.com/neoclide/coc-json)
  </br>[coc.highlight](https://github.com/neoclide/coc-highlight)
+ </br>[coc-snippets](https://github.com/neoclide/coc-snippets)
  </br>[rainbow](https://github.com/luochen1990/rainbow)
  </br>[virtualenv](https://github.com/jmcantrell/vim-virtualenv)
  </br>[taglist](https://github.com/vim-scripts/taglist.vim)----------I mainly use :Tlist command to see my function and declarations at once.
