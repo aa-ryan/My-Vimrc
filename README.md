@@ -1,8 +1,8 @@
 # vimrc
-I am getting started with vim , for python. 
+I am getting started with vim , for python.
 </br>(edit1 - It's been a while I have been using vim for not only python but C and C++ also.)
 </br> (edit2  - It's major upgrade now in my vimrc, will be adding a new file coc-setting.json.)
-</br> (Now I know about releases so no more edit updates) 
+</br> (Now I know about releases so no more edit updates)
 I started using **[coc.nvim](https://github.com/neoclide/coc.nvim)** and it's really a game changer.
 
 </br>***Added lot of comments to .vimrc file to make it readable and to understand commands.***
@@ -28,7 +28,7 @@ Some basic things, I use frequently in vim
 4. Most used commenting feature that comes with NERDcommentor.
  </br> Press Leader+cs - To comment out the whole line your cursor is on.
  </br>Press Leader+c$ - To comment from where your cursor is to the end of the line.
- 
+
  5.fzf.vim ---> Very use full plug, for searching file and inside files.Just :FZF or ff+Enter for files or <Leader>L for searching lines of the current buffer. It changes workflow entirely.
 
 
@@ -36,11 +36,11 @@ Some basic things, I use frequently in vim
  MAKE SURE TO INSTALL POWERLINE FONTS FOR AIRLINE TO WORK PROPERLY
  (IF YOU DON'T WANT TO INSTALL JUST REMOVE LINE 64, 65 and 66 FROM VIMRC)
  [Font](https://github.com/powerline/fonts)
- 
+
  ******************************************************************************************************
- 
+
  Read the official documentation for more efficiency while writing code
- </br>[nerdtree](https://github.com/preservim/nerdtree)            
+ </br>[nerdtree](https://github.com/preservim/nerdtree)
  [fugitive](https://github.com/tpope/vim-fugitive)
  </br>[airline](https://github.com/vim-airline/vim-airline)
  </br>[simpylfold](https://github.com/tmhedberg/simpylfold)
@@ -60,12 +60,12 @@ Some basic things, I use frequently in vim
  </br>[rainbow](https://github.com/luochen1990/rainbow)
  </br>[virtualenv](https://github.com/jmcantrell/vim-virtualenv)
  </br>[taglist](https://github.com/vim-scripts/taglist.vim)----------I mainly use :Tlist command to see my function and declarations at once.
- </br>[fzf](https://github.com/junegunn/fzf.vim) 
+ </br>[fzf](https://github.com/junegunn/fzf.vim)
  </br>[vim-repeat](https://github.com/tpope/vim-repeat)
  </br>[vim-muliple-cursor](https://github.com/terryma/vim-multiple-cursors)---Read it's documentation for sure it's amazing.
  </br>[vim-signature](https://github.com/terryma/vim-multiple-cursors) ------It shows your marked lines read documentation.
  </br>[plasticboy](https://github.com/plasticboy/vim-markdown)
-  
+
   I have been using a lot of colorschemes-->
  </br>[codedark](https://github.com/tomasiser/vim-code-dark)
  </br>[dracula](https://github.com/dracula/vim)
@@ -81,8 +81,8 @@ Some basic things, I use frequently in vim
 
 
 
- 
- 
+
+
 </br></br>
 **coc-settings.json explanation**
 You can access you coc-setting.json by command :CocConfig or you can find it in vim folder.
@@ -100,21 +100,21 @@ You can access you coc-setting.json by command :CocConfig or you can find it in 
 -  "python.linting.pylintEnabled":true,  (Enabling pylint for python) </br>
    "python.linting.pylintPath":"/Users/username/.venvs/1env/bin/pylint" (Path to my pylint executable file)</br>
    To install pylint "pip install pylint"
-   
+
 - "python.linting.pylamaEnabled":true, (Enabling pylama)</br>
   "python.linting.pylamaPath":"/Users/username/.venvs/1env/bin/pylama" (Path to my pylama)</br>
   Note: For using pylama you should have atleast pycodestyle.</br>
   If you want it to use to full potential install pydocstyle, pyflakes or flake8.
-  
+
   Commands: </br>* pip install pylama
             </br>* pip install pycodestyle
             </br>* pip install pydocstyle
-            </br>* pip install pyflakes 
+            </br>* pip install pyflakes
             </br>* pip install flake8
 
 -  "python.jediEnabled":false, (Default set to false it's just optional)</br>
    "python.jediPath" : "/Users/username/.venvs/1env/lib/python3.8/site-packages/jedi" (Path to jedi)</br>
-   
+
    Jedi is a completion libarary for python but now I am using MPLS (Microsoft Python Language Server)</br>
    If you set "false" coc.nvim will automatically download the latest MPLS for you.</br>
    You don't even need to set this to "false" just don't mention that line and path.
@@ -125,19 +125,23 @@ You can access you coc-setting.json by command :CocConfig or you can find it in 
 - "python.sortImports.path":"/Users/username/.venvs/1env/bin/isort", (isort for sorting imports)</br>
   Commands:
           </br> * pip install isort
-          
+
 
 -   "clangd.semanticHighlighting":true,       (It is for highlighting vim-cxx-.. plugin)</br>
      "clangd.path": "/Users/username/.config/clangd_10.0.0/bin/clangd"  (For C and C++ user, it is my path to clangd)</br>
-  Commands: 
+  Commands:
       </br> * brew install clangd
- 
+
  </br> For html
- -  "html.enable":true,</br> 
-  "html.validate.scripts": true,    
+ -  "html.enable":true,</br>
+  "html.validate.scripts": true,
   "html.format.enable":true,</br>
 
 </br>It's for coc-highlight
-  - "coc.preferences.colorSupport": true,</br>       
+  - "coc.preferences.colorSupport": true,</br>
     "highlight.colors.enable": true
 </br> Some extra settings like codelens is also enabled.
+
+
+Removed lots of plugins making vim slow and added pre-existing alternative for
+that like NETRW instead of NERDtree.

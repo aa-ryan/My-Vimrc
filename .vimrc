@@ -1,7 +1,7 @@
 "BASIC SETTINGS
 "Setting number as well as relative numbers for ease in scrolling and selection of line.
 set nu
-set shell=/bin/bash
+" set shell=/bin/bash
 set rnu
 set history=1000
 set tabstop=4
@@ -37,7 +37,7 @@ autocmd BufWinLeave .* mkview
 autocmd BufWinEnter .* silent loadview
 
 "Setting the same clipboard for Vim and System.
-set clipboard=unnamed
+"set clipboard=unnamed
 
 "You see suggestion for commands in Airline.
 set wildmenu
@@ -61,30 +61,25 @@ set undodir=.undo/,~/.undo/,/Users/arx6363/vimtemp//
 
 "Plugins
 call plug#begin()
-Plug 'scrooloose/nerdtree'
-"Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'plasticboy/vim-markdown'
-Plug 'kshenoy/vim-signature'
+Plug 'tpope/vim-commentary'
 Plug 'luochen1990/rainbow'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'SirVer/ultisnips'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'terryma/vim-multiple-cursors'
-Plug 'whatyouhide/vim-gotham'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
-Plug 'tmhedberg/simpylfold'
-Plug 'jmcantrell/vim-virtualenv'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
-Plug 'ffanzhang/vim-airline-stopwatch'
 Plug 'yggdroot/indentline'
 Plug 'jiangmiao/auto-pairs'
 Plug 'honza/vim-snippets'
 
 "colorschemes      ---------------------------------
+Plug 'whatyouhide/vim-gotham'
 Plug 'morhetz/gruvbox'
 Plug 'junegunn/seoul256.vim'
 Plug 'tomasiser/vim-code-dark'
@@ -110,8 +105,14 @@ let g:seoul256_background = 235
 let g:seoul256_light_background = 253
 let g:AutoPairsMapBS = 1
 let g:vim_markdown_conceal = 0
-let g:NERDTreeWinPos='right'
 
+"NETRW
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+augroup ProjectDrawer
 "Trailing whitespaces
 "Remove all trailing whitespaces by pressing F5.
 :nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl<Bar> :unlet _s <CR>
@@ -119,9 +120,6 @@ let g:NERDTreeWinPos='right'
 "Automatically remove all trailing whitespaces on saving file.
 autocmd BufWritePre * :%s/\s\+$//e
 
-"Mappings and Plug config
-"Shortcut to access NERDTree toggle menu.
-map N :NERDTreeToggle<CR>
 
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
@@ -192,10 +190,10 @@ autocmd filetype javascript nnoremap <buffer><F2> :w<CR>:!clear;node %<CR>
 "autocmd FileType cpp nnoremap <buffer> <F2> :w<CR>:!g++ -o %< % && ./%< <CR>
 "au FileType c,cpp nnoremap <buffer> <F6> :w<CR> :make %<<CR>
 "au FileType c,cpp nnoremap <buffer> <F7> :vsp<CR> :term ./%<<CR>
-au FileType c,cpp nnoremap <buffer> <F2> :w<CR> :make %<<CR> :term ./%<<CR>
+ au FileType c nnoremap <buffer> <F2> :w<CR> :make %<<CR> :term ./%<<CR>
+autocmd FileType cpp nmap <buffer> <F2> :w <CR>:!g++ --std=c++17 % -o %< <CR> :term ./%<<CR>
 
-au FileType rust nnoremap <buffer> <F2> :RustRun<CR>
-
+nnoremap ,cpp :-1read $HOME/.vim/skeleton/skel.cpp<CR>5jo
 "This is for c and cpp
 autocmd FileType c,cpp :set cindent
 autocmd FileType c,cpp :setf c
@@ -398,6 +396,9 @@ nnoremap <silent> ff :Files
 command! -bang DesktopFiles call fzf#vim#files('~/Desktop', <bang>0)
 nmap <Leader>_ :DesktopFiles<CR>
 
+command! -bang Nand2tetris call fzf#vim#files ('~/nand2tetris', <bang>0)
+nmap <Leader>- :Nand2tetris<CR>
+
 " Default fzf layout
 " - down / up / left / right
 "let g:fzf_layout = { 'down': '~60%' }
@@ -499,37 +500,11 @@ endfunction
 "  6 -> solid vertical bar
 "
 command! -nargs=* -complete=dir Cd call fzf#run(fzf#wrap(
-			\ {'source': 'find '.(empty(<f-args>) ? '.' : <f-args>).' -type d',
+			\ {'source': 'find '.(empty(<f-args>)? '.' : <f-args>).' -type d',
 			\  'sink': 'cd'}))
 
-
-"---UltiSnips---
-"
-
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-let g:coc_snippet_next = '<tab>'
-
-" Use <C-l> for trigger snippet expand.
-imap <C-l> <Plug>(coc-snippets-expand)
-
-" Use <C-j> for select text for visual placeholder of snippet.
-vmap <C-j> <Plug>(coc-snippets-select)
-
-" Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-j>'
-
-" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-k>'
-
-" Use <C-j> for both expand and jump (make expand higher priority.)
-imap <C-j> <Plug>(coc-snippets-expand-jump)
+ let g:UltiSnipsExpandTrigger= '<tab>'
+ let g:UltiSnipsJumpForwardTrigger='<C-j>'
+ let g:UltiSnipsJumpBackwardTrigger='<C-k>'
+ " If you want :UltiSnipsEdit to split your window.
+ let g:UltiSnipsEditSplit="vertical"
