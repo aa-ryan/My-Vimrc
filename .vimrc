@@ -61,7 +61,6 @@ set undodir=.undo/,~/.undo/,/Users/arx6363/vimtemp//
 
 "Plugins
 call plug#begin()
-Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-commentary'
 Plug 'luochen1990/rainbow'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -177,23 +176,24 @@ map tY :call airline#extensions#stopwatch#summary()<CR> "summary
 
 "Execution of programs
 "Press F2 to execute python files.
-autocmd FileType python nmap <F2> :w<CR> :term python3 %<CR>
-"Your error and warnings.
-nmap <F3> :CocDiagnostic<CR>
+"autocmd FileType python nmap <F2> :w<CR> :term python3 %<CR>
+""Your error and warnings.
+"nmap <F3> :CocDiagnostic<CR>
 
 
-"Press F2 to execute javascript files.
-autocmd filetype javascript nnoremap <buffer><F2> :w<CR>:!clear;node %<CR>
+""Press F2 to execute javascript files.
+"autocmd filetype javascript nnoremap <buffer><F2> :w<CR>:!clear;node %<CR>
 
-"Press F2 to compile and execute c and cpp files.
-"autocmd FileType c nnoremap <buffer> <F2> :w<CR>:!gcc -o %< % && ./%< <CR>
-"autocmd FileType cpp nnoremap <buffer> <F2> :w<CR>:!g++ -o %< % && ./%< <CR>
-"au FileType c,cpp nnoremap <buffer> <F6> :w<CR> :make %<<CR>
-"au FileType c,cpp nnoremap <buffer> <F7> :vsp<CR> :term ./%<<CR>
- au FileType c nnoremap <buffer> <F2> :w<CR> :make %<<CR> :term ./%<<CR>
-autocmd FileType cpp nmap <buffer> <F2> :w <CR>:!g++ --std=c++17 % -o %< <CR> :term ./%<<CR>
+""Press F2 to compile and execute c and cpp files.
+""autocmd FileType c nnoremap <buffer> <F2> :w<CR>:!gcc -o %< % && ./%< <CR>
+""autocmd FileType cpp nnoremap <buffer> <F2> :w<CR>:!g++ -o %< % && ./%< <CR>
+""au FileType c,cpp nnoremap <buffer> <F6> :w<CR> :make %<<CR>
+""au FileType c,cpp nnoremap <buffer> <F7> :vsp<CR> :term ./%<<CR>
+" au FileType c nnoremap <buffer> <F2> :w<CR> :make %<<CR> :term ./%<<CR>
+"autocmd FileType cpp nmap <buffer> <F2> :w <CR>:!g++ --std=c++17 % -o %< <CR> :term ./%<<CR>
 
-nnoremap ,cpp :-1read $HOME/.vim/skeleton/skel.cpp<CR>5jo
+
+nnoremap ,cpp :-1read $HOME/.vim/skeleton/skel.cpp<CR>7jo
 "This is for c and cpp
 autocmd FileType c,cpp :set cindent
 autocmd FileType c,cpp :setf c
@@ -201,6 +201,49 @@ autocmd FileType c,cpp :set expandtab
 
 "Reload .vimrc when changes are made.
 autocmd bufwritepost .vimrc source $MYVIMRC
+
+
+" Compiling and execution
+
+if filereadable("Makefile")
+        set makeprg=make\ -s
+    else
+        autocmd FileType java       set makeprg=javac\ %
+        autocmd FileType scala      set makeprg=scalac\ %
+        autocmd FileType haskell    set makeprg=ghc\ -o\ %<\ %
+        autocmd FileType javascript set makeprg=echo\ OK
+        autocmd FileType python     set makeprg=echo\ OK
+        autocmd FileType perl       set makeprg=echo\ OK
+        autocmd FileType c          set makeprg=gcc\ -o\ %<\ %
+        autocmd FileType cpp        set makeprg=g++\ --std=c++17\ -o\ %<\ %
+    endif
+
+                                " nmap <F8> <ESC>:w<CR><ESC>:!./%<CR>
+                                " imap <F8> <ESC>:w<CR><ESC>:!./%<CR>
+    autocmd FileType c          nmap <F4> <ESC>:w<CR><ESC>:term ./%<<CR>
+    autocmd FileType c          imap <F4> <ESC>:w<CR><ESC>:term ./%<<CR>
+    autocmd FileType cpp        nmap <F4> <ESC>:w<CR><ESC>:term ./%<<CR>
+    autocmd FileType cpp        imap <F4> <ESC>:w<CR><ESC>:term ./%<<CR>
+    autocmd FileType java       nmap <F4> <ESC>:w<CR><ESC>:!java %<<CR>
+    autocmd FileType java       imap <F4> <ESC>:w<CR><ESC>:!java %<<CR>
+    autocmd FileType scala      nmap <F4> <ESC>:w<CR><ESC>:!scala %<<CR>
+    autocmd FileType scala      imap <F4> <ESC>:w<CR><ESC>:!scala %<<CR>
+    autocmd FileType haskell    nmap <F4> <ESC>:w<CR><ESC>:!./%<<CR>
+    autocmd FileType haskell    imap <F4> <ESC>:w<CR><ESC>:!./%<<CR>
+    autocmd FileType python     nmap <F4> <ESC>:w<CR><ESC>:!python3 %<CR>
+    autocmd FileType python     imap <F4> <ESC>:w<CR><ESC>:!python3 %<CR>
+    autocmd FileType perl       nmap <F4> <ESC>:w<CR><ESC>:!perl %<CR>
+    autocmd FileType perl       imap <F4> <ESC>:w<CR><ESC>:!perl %<CR>
+
+    imap <F3> <ESC>:w<CR><ESC>:make<CR>
+    nmap <F3> <ESC>:w<CR><ESC>:make<CR>
+
+    imap <F2> <ESC>:w<CR><ESC>:silent make<CR>:call feedkeys("\<F4>")<CR>
+    nmap <F2> <ESC>:w<CR><ESC>:silent make<CR>:call feedkeys("\<F4>")<CR>
+
+    " F2 to compile and run :copen for errors
+    " <F3> for compiling only
+    " F4 to run file pre-existing binary
 
 
 """"""""From here is the start for coc.nvim plugin.""""""""""
@@ -393,7 +436,7 @@ nnoremap <silent> <Leader>B  :Buffers<CR>
 "Leader+ff+Enter for file search.
 nnoremap <silent> ff :Files
 
-command! -bang DesktopFiles call fzf#vim#files('~/Desktop', <bang>0)
+command! -bang DesktopFiles call fzf#vim#files('~/Desktop/', <bang>0)
 nmap <Leader>_ :DesktopFiles<CR>
 
 command! -bang Nand2tetris call fzf#vim#files ('~/nand2tetris', <bang>0)
