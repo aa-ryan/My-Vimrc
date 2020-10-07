@@ -3,7 +3,7 @@
 set nu
 " set shell=/bin/bash
 set rnu
-set history=1000
+set history=10000
 set tabstop=4
 set shiftwidth=4
 set t_Co=256
@@ -42,9 +42,6 @@ autocmd BufWinEnter .* silent loadview
 "You see suggestion for commands in Airline.
 set wildmenu
 
-"Max textwidth after 80 characters new line will began.
-"You can see count Airline.
-set textwidth=79
 
 "This is your leader key
 :let mapleader = "\<Space>"
@@ -113,9 +110,7 @@ let g:netrw_altv = 1
 let g:netrw_winsize = 25
 augroup ProjectDrawer
 "Trailing whitespaces
-"Remove all trailing whitespaces by pressing F5.
-:nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl<Bar> :unlet _s <CR>
-
+"
 "Automatically remove all trailing whitespaces on saving file.
 autocmd BufWritePre * :%s/\s\+$//e
 
@@ -166,13 +161,6 @@ if !exists('g:airline_symbols')
 endif
 let g:airline_section_c = '%{strftime("%H:%M")}'
 
-"StopClock for time management, See the key bindings.
-map tR :call airline#extensions#stopwatch#run()<CR>. "run
-map tS :call airline#extensions#stopwatch#split()<CR> "split
-map tT :call airline#extensions#stopwatch#stop()<CR>  "stop
-map tE :call airline#extensions#stopwatch#reset()<CR>  "reset
-map tY :call airline#extensions#stopwatch#summary()<CR> "summary
-
 
 "Execution of programs
 "Press F2 to execute python files.
@@ -200,7 +188,8 @@ autocmd FileType c,cpp :setf c
 autocmd FileType c,cpp :set expandtab
 
 "Reload .vimrc when changes are made.
-autocmd bufwritepost .vimrc source $MYVIMRC
+" autocmd bufwritepost .vimrc source $MYVIMRC
+" slows down saving of rc file
 
 
 " Compiling and execution
@@ -212,7 +201,7 @@ if filereadable("Makefile")
         autocmd FileType scala      set makeprg=scalac\ %
         autocmd FileType haskell    set makeprg=ghc\ -o\ %<\ %
         autocmd FileType javascript set makeprg=echo\ OK
-        autocmd FileType python     set makeprg=echo\ OK
+        autocmd FileType python     set makeprg=python3\ %
         autocmd FileType perl       set makeprg=echo\ OK
         autocmd FileType c          set makeprg=gcc\ -o\ %<\ %
         autocmd FileType cpp        set makeprg=g++\ --std=c++17\ -o\ %<\ %
@@ -230,20 +219,20 @@ if filereadable("Makefile")
     autocmd FileType scala      imap <F4> <ESC>:w<CR><ESC>:!scala %<<CR>
     autocmd FileType haskell    nmap <F4> <ESC>:w<CR><ESC>:!./%<<CR>
     autocmd FileType haskell    imap <F4> <ESC>:w<CR><ESC>:!./%<<CR>
-    autocmd FileType python     nmap <F4> <ESC>:w<CR><ESC>:!python3 %<CR>
-    autocmd FileType python     imap <F4> <ESC>:w<CR><ESC>:!python3 %<CR>
+    autocmd FileType python     nmap <F4> <ESC>:w<CR><ESC>:term python3 %<CR>
+    autocmd FileType python     imap <F4> <ESC>:w<CR><ESC>:term python3 %<CR>
     autocmd FileType perl       nmap <F4> <ESC>:w<CR><ESC>:!perl %<CR>
     autocmd FileType perl       imap <F4> <ESC>:w<CR><ESC>:!perl %<CR>
 
-    imap <F3> <ESC>:w<CR><ESC>:make<CR>
-    nmap <F3> <ESC>:w<CR><ESC>:make<CR>
+    imap <F3> <ESC>:w<CR><ESC>:make<CR>:cwindow<CR><CR>
+    nmap <F3> <ESC>:w<CR><ESC>:make<CR>:cwindow<CR><CR>
 
     imap <F2> <ESC>:w<CR><ESC>:silent make<CR>:call feedkeys("\<F4>")<CR>
     nmap <F2> <ESC>:w<CR><ESC>:silent make<CR>:call feedkeys("\<F4>")<CR>
 
-    " F2 to compile and run :copen for errors
-    " <F3> for compiling only
-    " F4 to run file pre-existing binary
+    "F2 to compile and run :copen for errors
+    "<F3> for compiling only
+    "F4 to run file pre-existing binary
 
 
 """"""""From here is the start for coc.nvim plugin.""""""""""
