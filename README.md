@@ -40,7 +40,7 @@ Some basic things, I use frequently in vim
  ******************************************************************************************************
 
  Read the official documentation for more efficiency while writing code
- </br>[nerdtree](https://github.com/preservim/nerdtree)
+ </br>
  [fugitive](https://github.com/tpope/vim-fugitive)
  </br>[airline](https://github.com/vim-airline/vim-airline)
  </br>[simpylfold](https://github.com/tmhedberg/simpylfold)
