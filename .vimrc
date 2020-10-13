@@ -1,7 +1,7 @@
 "BASIC SETTINGS
 "Setting number as well as relative numbers for ease in scrolling and selection of line.
 set nu
-" set shell=/bin/bash
+set shell=/bin/bash
 set rnu
 set history=10000
 set tabstop=4
@@ -51,10 +51,11 @@ if has("gui_macvim")
 	autocmd GUIEnter * set vb t_vb=
 endif
 
+set undofile
 "Setting directory for .backup, .swp, .undo files to location I want to.
-set backupdir=.backup/,~/.backup/,/Users/arx6363/vimtemp//
-set directory=.swp/,~/.swp/,/Users/arx6363/vimtemp//
-set undodir=.undo/,~/.undo/,/Users/arx6363/vimtemp//
+set backupdir=/tmp//
+set directory=/tmp//
+set undodir=/tmp//
 
 "Plugins
 call plug#begin()
@@ -181,7 +182,8 @@ let g:airline_section_c = '%{strftime("%H:%M")}'
 "autocmd FileType cpp nmap <buffer> <F2> :w <CR>:!g++ --std=c++17 % -o %< <CR> :term ./%<<CR>
 
 
-nnoremap ,cpp :-1read $HOME/.vim/skeleton/skel.cpp<CR>7jo
+nnoremap ,cpp :-1read $HOME/.vim/skeleton/skel.cpp<CR>8jo
+nmap <leader>t :vert term<CR>
 "This is for c and cpp
 autocmd FileType c,cpp :set cindent
 autocmd FileType c,cpp :setf c
@@ -209,10 +211,10 @@ if filereadable("Makefile")
 
                                 " nmap <F8> <ESC>:w<CR><ESC>:!./%<CR>
                                 " imap <F8> <ESC>:w<CR><ESC>:!./%<CR>
-    autocmd FileType c          nmap <F4> <ESC>:w<CR><ESC>:term ./%<<CR>
-    autocmd FileType c          imap <F4> <ESC>:w<CR><ESC>:term ./%<<CR>
-    autocmd FileType cpp        nmap <F4> <ESC>:w<CR><ESC>:term ./%<<CR>
-    autocmd FileType cpp        imap <F4> <ESC>:w<CR><ESC>:term ./%<<CR>
+    autocmd FileType c          nmap <F4> <ESC>:w<CR><ESC>:vert term ./%<<CR>
+    autocmd FileType c          imap <F4> <ESC>:w<CR><ESC>:vert term ./%<<CR>
+    autocmd FileType cpp        nmap <F4> <ESC>:w<CR><ESC>:vert term ./%<<CR>
+    autocmd FileType cpp        imap <F4> <ESC>:w<CR><ESC>:vert term ./%<<CR>
     autocmd FileType java       nmap <F4> <ESC>:w<CR><ESC>:!java %<<CR>
     autocmd FileType java       imap <F4> <ESC>:w<CR><ESC>:!java %<<CR>
     autocmd FileType scala      nmap <F4> <ESC>:w<CR><ESC>:!scala %<<CR>
@@ -233,6 +235,7 @@ if filereadable("Makefile")
     "F2 to compile and run :copen for errors
     "<F3> for compiling only
     "F4 to run file pre-existing binary
+    "
 
 
 """"""""From here is the start for coc.nvim plugin.""""""""""
@@ -242,8 +245,8 @@ if filereadable("Makefile")
 set hidden
 
 " Some servers have issues with backup files, see #649.
-set nobackup
-set nowritebackup
+" set nobackup
+" set nowritebackup
 
 " Give more space for displaying messages.
 set cmdheight=2
@@ -444,7 +447,7 @@ nmap <Leader>- :Nand2tetris<CR>
 " CTRL-N and CTRL-P will be automatically bound to next-history and
 " previous-history instead of down and up. If you don't like the change,
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
-let g:fzf_history_dir = '/Users/arx6363/vimtemp/skim_his'
+let g:fzf_history_dir = '/Users/arx6363/tmp_vim/skim_his'
 let g:fzf_files_options =
 			\ '--preview "(coderay {} || bat {}) 2> /dev/null | head -'.&lines.'"'
 let g:fzf_layout = {'window' : {'width' : 0.8, 'height' : 0.8}}
