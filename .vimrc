@@ -182,7 +182,7 @@ let g:airline_section_c = '%{strftime("%H:%M")}'
 "autocmd FileType cpp nmap <buffer> <F2> :w <CR>:!g++ --std=c++17 % -o %< <CR> :term ./%<<CR>
 
 
-nnoremap ,cpp :-1read $HOME/.vim/skeleton/skel.cpp<CR>8jo
+nnoremap ,cpp :-1read $HOME/.vim/skeleton/skel.cpp<CR>5j3wa<CR><ESC>O
 nmap <leader>t :vert term<CR>
 "This is for c and cpp
 autocmd FileType c,cpp :set cindent
@@ -542,4 +542,7 @@ command! -nargs=* -complete=dir Cd call fzf#run(fzf#wrap(
  let g:UltiSnipsJumpForwardTrigger='<C-j>'
  let g:UltiSnipsJumpBackwardTrigger='<C-k>'
  " If you want :UltiSnipsEdit to split your window.
- let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit="vertical"
+
+hi Cursor gui=reverse guibg=NONE guifg=NONE
+hi Visual gui=reverse guibg=NONE guifg=NONE
