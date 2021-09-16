@@ -18,6 +18,7 @@ set ignorecase
 set omnifunc=syntaxcomplete#Complete
 set completeopt+=popup
 set nocompatible
+set wildignore=*.class
 
 "Syntax enabled.
 syntax on
@@ -114,9 +115,6 @@ autocmd FileType c,cpp :setf c
 autocmd FileType c,cpp :set expandtab
 
 
-
-
-
 "fzf.vim-------------------maps and uses----------------------
 ""Leader+L for line search in the current file.
 nnoremap <silent> <Leader>L   :BLines<CR>
@@ -197,7 +195,7 @@ function! s:GoToDefinition()
 endfunction
 
 nmap <silent> gd :call <SID>GoToDefinition()<CR>
-au Filetype markdown,c,cpp let b:autopairs_loaded=1
+" au Filetype markdown,c,cpp let b:autopairs_loaded=1
 
 " Copy to system clipboard
 noremap <leader>c "*yy<cr>
@@ -239,3 +237,6 @@ if filereadable("Makefile")
 
 	" imap {] <ESC>:w<CR><ESC>:silent make<CR>:call feedkeys("\<F4>")<CR>
     nmap {]  <ESC>:w<CR><ESC>:silent make<CR>:call feedkeys("\{[")<CR>
+
+
+
