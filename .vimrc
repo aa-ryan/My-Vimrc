@@ -229,13 +229,13 @@ if filereadable("Makefile")
     " autocmd FileType scala      imap {[ <ESC>:w<CR><ESC>:!scala %<<CR>
     " autocmd FileType haskell    nmap {[ <ESC>:w<CR><ESC>:!./%<<CR> autocmd FileType haskell    imap {[ <ESC>:w<CR><ESC>:!./%<<CR> autocmd FileType python     nmap {[ <ESC>:w<CR><ESC>:vert term python3 %<CR>
     " autocmd FileType python     imap {[ <ESC>:w<CR><ESC>:vert term python3 %<CR>
-    " autocmd FileType perl       nmap {[ <ESC>:w<CR><ESC>:!perl %<CR>
-    " autocmd FileType perl       imap {[ <ESC>:w<CR><ESC>:!perl %<CR>
+    autocmd FileType perl       nmap {[ <ESC>:w<CR><ESC>:!perl %<CR>
+    autocmd FileType perl       imap {[ <ESC>:w<CR><ESC>:!perl %<CR>
 
     " imap {{ <ESC>:w<CR><ESC>:make<CR>:cwindow<CR><CR>
     nmap {{ <ESC>:w<CR><ESC>:make<CR>:cwindow<CR><CR>
 
-	" imap {] <ESC>:w<CR><ESC>:silent make<CR>:call feedkeys("\<F4>")<CR>
+	imap {] <ESC>:w<CR><ESC>:silent make<CR>:call feedkeys("\<F4>")<CR>
     nmap {]  <ESC>:w<CR><ESC>:silent make<CR>:call feedkeys("\{[")<CR>
 
 
